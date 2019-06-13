@@ -1,0 +1,13 @@
+.DS_Store
+
+build/
+
+dist/
+
+native/internal_tmp
+/
+out
+/
+atlassian-ide-plugin.xml
+
+.idea/workspace.xml
