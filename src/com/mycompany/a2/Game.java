@@ -1,4 +1,6 @@
 package com.mycompany.a2;
+//package com.mycompany.commands;
+
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -17,6 +19,8 @@ public class Game extends Form {
 
     //fields
     private GameWorld gw;
+    private MapView mv;
+    private PointsView pv;
 
 
 
@@ -24,10 +28,26 @@ public class Game extends Form {
     //methods
     //constructor
     public Game(){
+
+
         gw = new GameWorld();
+        mv = new MapView();
+        pv = new PointsView();
+        gw.addObserver(mv);
+        gw.addObserver(pv);
+        this.show();
+
+
+
+
+
+        /**
+        old code
         gw.init();
         play();
+        */
     }
+
     public void play(){
         //code later
         Label myLabel = new Label("Enter a command:");
@@ -41,8 +61,6 @@ public class Game extends Form {
                 String sCommand =  myTextField.getText();
                 myTextField.clear();
                 switch (sCommand.charAt(0)){
-
-
 
 
 
@@ -244,6 +262,7 @@ public class Game extends Form {
                 }
             }
         });
+
     }
 
 

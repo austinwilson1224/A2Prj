@@ -3,6 +3,7 @@ package com.mycompany.a2;
 
 import com.codename1.ui.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Observable;
 
 
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 
 
-public class GameWorld {
+public class GameWorld extends Observable implements IGameWorld {
 
 
 

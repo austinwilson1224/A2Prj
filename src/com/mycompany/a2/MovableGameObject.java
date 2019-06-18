@@ -37,11 +37,13 @@ public abstract class MovableGameObject extends GameObject implements Imovable {
     public void increaseSpeed() {
     	if(this.speed < MAX_SPEED) {
     		this.speed++;
+    		System.out.println("Speed increased by 1");
     	}
     }
     public void decreaseSpeed() {
     	if(this.speed > MIN_SPEED) {
     		this.speed--;
+    		System.out.println("Speed decreased by 1");
     
     	}
     }
@@ -59,28 +61,12 @@ public abstract class MovableGameObject extends GameObject implements Imovable {
     @Override
     public void move() {
     	
-    	//to convert degrees to radians 
-    	double conversion = Math.PI / 180;
-    	
-    	
     	double x = this.getLocation().getX();
     	double y = this.getLocation().getY();
-    	
-    	
-    	
-    	
-    	System.out.println("\nPrevious location: " + x + "," + y + "\n");
-    	
-    	
-    	
-    	y -= (this.getSpeed() * Math.cos( conversion * (double)this.getDirection()));
-    	
-    	
-    	
-    	
-    	x += (this.getSpeed() * Math.sin( conversion * (double)this.getDirection()));
+    	x -= speed * Math.cos(Math.toRadians(90 + direction));
+    	y -= speed * Math.sin(Math.toRadians(90 + direction));
     	this.setLocation(x, y);
-    	System.out.println("\nNew location: " + x + "," + y + "\n");
+
     }
     @Override
     public String toString() {
