@@ -1,11 +1,12 @@
 package com.mycompany.a2;
 //package com.mycompany.commands;
 
-import com.codename1.ui.Form;
-import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
+import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+
 
 /**
  * This is the Game class which is the primary class that encapsulates the whole game
@@ -31,14 +32,15 @@ public class Game extends Form {
 
 
         gw = new GameWorld();
+        gw.init();
         mv = new MapView();
-        pv = new PointsView();
+        pv = new PointsView(gw);
         gw.addObserver(mv);
         gw.addObserver(pv);
         this.show();
 
 
-
+        playA2();
 
 
         /**
@@ -48,7 +50,88 @@ public class Game extends Form {
         */
     }
 
-    public void play(){
+    public void playA2() {
+
+
+
+        this.setLayout(new BorderLayout());
+
+
+
+
+        //toolbar
+        Toolbar toolbar = new Toolbar();
+        setToolbar(toolbar);
+        toolbar.setTitle("ASTEROIDS");
+
+
+        //commands
+        Command about = new Command("About");
+        Command New = new Command("New");
+        Command undo = new Command("Undo");
+        Command save = new Command("Save");
+        Command quit = new Command("Quit");
+        CheckBox sound = new CheckBox("sound");
+        sound.getAllStyles().setBgTransparency(255);
+        toolbar.addCommandToLeftSideMenu(about);
+        toolbar.addCommandToLeftSideMenu(New);
+        toolbar.addCommandToLeftSideMenu(undo);
+        toolbar.addCommandToLeftSideMenu(save);
+        toolbar.addCommandToLeftSideMenu(quit);
+        toolbar.addComponentToLeftSideMenu(sound);
+
+
+
+        //Points View is held in the top container
+        Container topContainer = new Container();
+        topContainer.add(pv);
+        this.add(BorderLayout.NORTH,topContainer);
+
+
+
+
+
+        //this will be the left container
+        Container leftContainer = new Container();
+
+        leftContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+
+        //buttons to add
+        Button addAsteroid = new Button("+Asteroid");
+        Button addNPS = new Button("+NPS");
+        Button addStation = new Button("+Station");
+        Button addPlayerShip = new Button("+PlayerShip");
+        Button firePS = new Button("Fire PS");
+        Button jumpPS = new Button("Jump PS");
+
+
+        //left container
+        leftContainer.add(addAsteroid);
+        leftContainer.add(addNPS);
+        leftContainer.add(addStation);
+        leftContainer.add(addPlayerShip);
+        leftContainer.add(firePS);
+        leftContainer.add(jumpPS);
+        this.add(BorderLayout.WEST,leftContainer);
+
+
+
+        /*
+        this.add(new GridLayout(5,1));
+        this.setLayout(new GridLayout(5,1));
+        Label points = new Label("POINTS");
+        this.add(points);
+        */
+
+
+
+
+
+    }
+
+
+
+    public void playA1(){
         //code later
         Label myLabel = new Label("Enter a command:");
         this.addComponent(myLabel);
@@ -63,7 +146,7 @@ public class Game extends Form {
                 switch (sCommand.charAt(0)){
 
 
-
+                    /*
                     //make a new asteroid...
                     case 'a':
                         gw.loadNewAsteroid();
@@ -95,14 +178,7 @@ public class Game extends Form {
                     	gw.decreasePSSpeed();
                     	break;
                     	
-                    /**
-                     * turn PS left by a small amount (ell)
-                     * method increments the PlayerShips direction by 1
-                     * if the player ship is in direction 359 it resets to zero 
-                     * 
-                     * 
-                     * finished 
-                     */
+
                     case 'l': 
                     	gw.turnPSLeft();
                     	break;
@@ -139,89 +215,43 @@ public class Game extends Form {
                         //third delivery
                         //June 7th
                         
-                    /**
-                     * control the direction of the PS's missile launcher
-                     * by revolving it around the center of the PS in a clockwise direction
-                     * 
-                     * PSML stands for Player Ship Missile Launcher
-                     * 
-                     * finished
-                     */
+
                     case '>':
                     	gw.revolvePSML();
                     	break;
                     	
-                    	
-                    	
-                    /**
-                     * load a new supply of missiles into the PS
-                     * increased the missile count to maximum 
-                     * 
-                     * finished 
-                     */
+
                     
                     case 'n':
                     	gw.reloadPS();
                     	break;
                     	
-                    	
-                    /**
-                     * a PS's missile struck and killed an asteroid 
-                     * 
-                     * finished 
-                     */
+
                     case 'k':
                     	gw.killAsteroid();
                     	break;
-                    	
-                    /**
-                     * PS's missile has struck and eliminated an NPS 
-                     * 
-                     * finished 
-                     */
+
                     case 'e':
                         gw.eliminateNPS();
                         break;
                         
-                    /**
-                     * NPS's missile has struck and exploded a PS
-                     * 
-                     * finished 
-                     * 
-                     */
+
                     case 'E':
                     	gw.eliminatePS();
                     	break;
                     	
-                    /**
-                     * PS crashed into an asteroid
-                     * tell game world to remove the ship and an asteroid and to decrement the count of lives left 
-                     * if no lives are left then the game is over
-                     * you may choose any asteroid to be removed 
-                     * later we'll worry about asteroids needing to be close to the ship
-                     * 
-                     * finished 
-                     */
+
                     case 'c':
                     	gw.crashAsteroid();
                     	break;
                     
                     	
-                    /**
-                     * PS has hit an NPS
-                     * 		
-                     * finished		
-                     */
+
                     case 'h':
                     	gw.crashNPS();
                     	break;
                     	
-                    	
-                    /**
-                     * two asteroids have collided
-                     * 
-                     * finished 
-                     */
+
                     case 'x':
                     	gw.asteroidCrash();
                     	break;
@@ -230,18 +260,7 @@ public class Game extends Form {
                     case 'I':
                     	gw.asteroidCrashNPS();
                     	break;
-                    	
-                    /**
-                     * game world game clock has ticked
-                     * 
-                     * has the effect of 
-                     * 1. all movable objects are told to update their positions 
-                     * 2. every missile's fuel level is reduced by one and 
-                     * 	any missiles which are now out of fuel are removed from the game
-                     * 3. each space stations toggles its blinking light if the tick count modulo 
-                     * the stations blink rate is zero
-                     * 4. the "elapsed game time" is incremented by one 
-                     */
+
                     case 't':
                     	gw.tick();
                     	break;
@@ -257,7 +276,7 @@ public class Game extends Form {
                     case 'q':
                     	quit();
                     	break;
-
+            */
 
                 }
             }
@@ -266,7 +285,7 @@ public class Game extends Form {
     }
 
 
-    private void quit(){
+    public void quit(){
         System.exit(0);
     }
 }

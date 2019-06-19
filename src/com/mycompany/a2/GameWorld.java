@@ -32,25 +32,29 @@ public class GameWorld extends Observable implements IGameWorld {
 
 
     /**
-     *
      * the time that the program has been running is equal to
      * the current time minus the time that the program was created
      */
-
-
-    //long PROGRAM_CREATION = System.nanoTime();
-
-
-
-
-
-
 
 
     private int numberOfLives;
     private int playerScore;
     private int numMissiles;
     private int timeElapsed;
+
+
+    public int getNumberOfLives(){
+    	return this.numberOfLives;
+	}
+	public int getPlayerScore(){
+    	return this.playerScore;
+	}
+	public int getNumMissiles(){
+    	return this.numMissiles;
+	}
+	public int getTimeElapsed(){
+    	return this.timeElapsed;
+	}
 
 
 
@@ -155,8 +159,12 @@ public class GameWorld extends Observable implements IGameWorld {
     }
 
 
-    //f
-    public void fireMissilePS(){
+	/**
+	 * f
+	 * method to fire a missile from the NPS
+	 */
+
+	public void fireMissilePS(){
 
 
         //precondition is to check that the playerShip is in GameWorld
@@ -604,7 +612,9 @@ public class GameWorld extends Observable implements IGameWorld {
 		return null;
 	}
 		
-	
+	public void quit(){
+		System.exit(0);
+	}
 	
 	
 	
