@@ -11,8 +11,8 @@ package com.mycompany.a2;
 public abstract class MovableGameObject extends GameObject implements Imovable {
     private double speed;
     private int direction;
-    private final int MIN_SPEED = 0;
-    private final int MAX_SPEED = 20;
+    public static final int MIN_SPEED = 0;
+    public static final int MAX_SPEED = 20;
     private final int MIN_DIRECTION = 0;
     private final int MAX_DIRECTION = 359;
 

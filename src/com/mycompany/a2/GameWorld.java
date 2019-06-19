@@ -49,12 +49,8 @@ public class GameWorld extends Observable implements IGameWorld {
 	public int getPlayerScore(){
     	return this.playerScore;
 	}
-	public int getNumMissiles(){
-    	return this.numMissiles;
-	}
-	public int getTimeElapsed(){
-    	return this.timeElapsed;
-	}
+	public int getNumMissiles(){ return this.numMissiles; }
+	public int getTimeElapsed(){ return this.timeElapsed; }
 
 
 
@@ -79,13 +75,20 @@ public class GameWorld extends Observable implements IGameWorld {
      */
     public void increasePSSpeed(){
         if(this.playerShip != null) {
-        	this.playerShip.increaseSpeed();
+        	if(playerShip.getSpeed() < playerShip.MAX_SPEED)
+        		this.playerShip.increaseSpeed();
+        	else System.out.println("traveling at max speed");
         }
+        else System.out.println("No player ship in the game");
     }
     public void decreasePSSpeed(){
         if(this.playerShip != null) {
-        	playerShip.decreaseSpeed();
+        	if(playerShip.getSpeed() > playerShip.MIN_SPEED)
+				playerShip.decreaseSpeed();
+        	else System.out.println("traveling at minimum speed");
+
         }
+        else System.out.println("No player ship in the game");
     }
     public void turnPSRight(){
         if(playerShip!=null) {
@@ -242,7 +245,12 @@ public class GameWorld extends Observable implements IGameWorld {
      */
 	public void jump() {
 		if(playerShip != null) {
-			playerShip.setLocation(512, 384);
+			if(playerShip.getLocation().getX() == 512.0 && playerShip.getLocation().getY() == 384.0)
+				System.out.println("PLAYER SHIP ALREADY IN CENTER");
+			else {
+				playerShip.setLocation(512, 384);
+				System.out.println("PS jumped to " + playerShip.getLocation());
+			}
 		}
 		else System.out.println("No player ship in game");
 		
@@ -270,8 +278,12 @@ public class GameWorld extends Observable implements IGameWorld {
 
 	public void reloadPS() {
 		if(playerShip != null) {
-			playerShip.setMissileCount(MAX_MISSILES);
-			System.out.println("Player Ship missiles resupplied");
+			if(playerShip.getMissileCount() < MAX_MISSILES){
+				playerShip.setMissileCount(MAX_MISSILES);
+				System.out.println("Player Ship missiles resupplied");
+			}
+			else System.out.println("Ammo full");
+
 		}
 		else System.out.println("NO player ship in game");
 		
@@ -564,6 +576,7 @@ public class GameWorld extends Observable implements IGameWorld {
 			//4 increment time elapsed by 1 
 			timeElapsed++;
 		}
+		System.out.println("GAME TICKED");
 	}
 	
 	

@@ -6,6 +6,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.mycompany.commands.*;
 
 
 /**
@@ -40,6 +41,7 @@ public class Game extends Form {
         this.show();
 
 
+
         playA2();
 
 
@@ -66,11 +68,11 @@ public class Game extends Form {
 
 
         //commands
-        Command about = new Command("About");
-        Command New = new Command("New");
-        Command undo = new Command("Undo");
-        Command save = new Command("Save");
-        Command quit = new Command("Quit");
+        Command about = new AboutCommand(gw);
+        Command New = new NewCommand(gw);
+        Command undo = new UndoCommand(gw);
+        Command save = new SaveCommand(gw);
+        Command quit = new QuitCommand(gw);
         CheckBox sound = new CheckBox("sound");
         sound.getAllStyles().setBgTransparency(255);
         toolbar.addCommandToLeftSideMenu(about);
@@ -79,7 +81,7 @@ public class Game extends Form {
         toolbar.addCommandToLeftSideMenu(save);
         toolbar.addCommandToLeftSideMenu(quit);
         toolbar.addComponentToLeftSideMenu(sound);
-
+        //toolbar.getAllStyles().setAlignment(2);
 
 
         //Points View is held in the top container
@@ -93,8 +95,8 @@ public class Game extends Form {
 
         //this will be the left container
         Container leftContainer = new Container();
-
         leftContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+        leftContainer.getAllStyles().setAlignment(LEFT);
 
         //buttons to add
         Button addAsteroid = new Button("+Asteroid");
@@ -105,6 +107,143 @@ public class Game extends Form {
         Button jumpPS = new Button("Jump PS");
 
 
+
+        //initiaizing commands
+        AboutCommand aboutCommand = new AboutCommand(gw);
+        AddAsteroidCommand addAsteroidCommand = new AddAsteroidCommand(gw);
+        AddNPSCommand addNPSCommand = new AddNPSCommand(gw);
+        AddPlayerShipCommand addPlayerShipCommand = new AddPlayerShipCommand(gw);
+        AddSpaceStationCommand addSpaceStationCommand = new AddSpaceStationCommand(gw);
+        AsteroidHitsNPSCommand asteroidHitsNPSCommand = new AsteroidHitsNPSCommand(gw);
+        AsteroidsCrashCommand asteroidsCrashCommand = new AsteroidsCrashCommand(gw);
+        DecreasePSSpeedCommand decreasePSSpeedCommand = new DecreasePSSpeedCommand(gw);
+        IncreasePSSpeedCommand increasePSSpeedCommand = new IncreasePSSpeedCommand(gw);
+        JumpCommand jumpCommand = new JumpCommand(gw);
+        LoadPSMissilesCommand loadPSMissilesCommand = new LoadPSMissilesCommand(gw);
+        NewCommand newCommand = new NewCommand(gw);
+        NPSFireCommand npsFireCommand = new NPSFireCommand(gw);
+        NPSMissileHitPSCommand npsMissileHitPSCommand = new NPSMissileHitPSCommand(gw);
+        PSFireCommand psFireCommand = new PSFireCommand(gw);
+        PSHitsAsteroidCommand psHitsAsteroidCommand = new PSHitsAsteroidCommand(gw);
+        PSHitsNPSCommand psHitsNPSCommand = new PSHitsNPSCommand(gw);
+        PSMissileHitAsteroidCommand psMissileHitAsteroidCommand = new PSMissileHitAsteroidCommand(gw);
+        PSMissileHitNPSCommand psMissileHitNPSCommand = new PSMissileHitNPSCommand(gw);
+        QuitCommand quitCommand = new QuitCommand(gw);
+        SaveCommand saveCommand = new SaveCommand(gw);
+        SoundCommand soundCommand = new SoundCommand(gw);
+        TickCommand tickCommand = new TickCommand(gw);
+        TurnMLLeftCommand turnMLLeftCommand = new TurnMLLeftCommand(gw);
+        TurnMLRightCommand turnMLRightCommand = new TurnMLRightCommand(gw);
+        TurnPlayerShipRightCommand turnPlayerShipRightCommand = new TurnPlayerShipRightCommand(gw);
+        TurnPlayerShipLeftCommand turnPlayerShipLeftCommand = new TurnPlayerShipLeftCommand(gw);
+
+
+        //other comands
+        PrintCommand printCommand = new PrintCommand(gw);
+        MapCommand mapCommand = new MapCommand(gw);
+
+
+
+        //command key binding
+
+        //a = add asteroid
+        this.addKeyListener(97,addAsteroidCommand);
+        //s = add player ship
+        this.addKeyListener(115,addPlayerShipCommand);
+        //y = add NPS
+        this.addKeyListener(121,addNPSCommand);
+        //b  = add space station
+        this.addKeyListener(98,addSpaceStationCommand);
+
+
+
+
+        //i = increase PS speed
+        this.addKeyListener( 105,increasePSSpeedCommand);
+        //d = decrease PS speed
+        this.addKeyListener(100,decreasePSSpeedCommand);
+
+
+        //steering player ship
+        //l = steer player sip left
+        this.addKeyListener(108,turnPlayerShipLeftCommand);
+        //r = turn player ship right
+        this.addKeyListener(114,turnPlayerShipRightCommand);
+
+
+        //rotate player ship missile launcher
+        //> = 62
+        this.addKeyListener(62,turnMLRightCommand);
+
+
+
+        //f = fire missile out of player ship
+        this.addKeyListener(102,psFireCommand);
+        //L = launch missile out of NPS
+        this.addKeyListener(76,npsFireCommand);
+
+
+        //j = jump to hyperspace
+        this.addKeyListener(106,jumpCommand);
+
+        //n = reload
+        this.addKeyListener(110,loadPSMissilesCommand);
+
+        //k = PS missile has struck and killed an asteroid
+        this.addKeyListener(107,psMissileHitAsteroidCommand);
+
+        //e = PS missile struck and killed NPS
+        this.addKeyListener(101,psHitsNPSCommand);
+
+        //E = NPS missile struck and killed PS
+        this.addKeyListener(121,npsMissileHitPSCommand);
+
+        //c = PS crashed into an asteroid
+        this.addKeyListener(99,psHitsAsteroidCommand);
+
+        //h = PS hit and NPS
+        this.addKeyListener(104,psHitsNPSCommand);
+
+        //x = two asteroids have collided
+        this.addKeyListener(120,asteroidsCrashCommand);
+
+        //I = 73 NPS hit asteroid
+        this.addKeyListener(73, asteroidHitsNPSCommand);
+
+        //t = tick
+        this.addKeyListener(116,tickCommand);
+
+        //p = print
+        this.addKeyListener(112,printCommand);
+
+        //m = print a map
+        this.addKeyListener(109,mapCommand);
+
+
+
+
+
+
+
+
+
+
+
+
+        //q = quit
+        this.addKeyListener(113,quit);
+
+
+        //associating the command with correct buttons
+        addAsteroid.setCommand(addAsteroidCommand);
+        addNPS.setCommand(addNPSCommand);
+        addStation.setCommand(addSpaceStationCommand);
+        addPlayerShip.setCommand(addPlayerShipCommand);
+        firePS.setCommand(psFireCommand);
+        jumpPS.setCommand(jumpCommand);
+
+
+
         //left container
         leftContainer.add(addAsteroid);
         leftContainer.add(addNPS);
@@ -112,6 +251,7 @@ public class Game extends Form {
         leftContainer.add(addPlayerShip);
         leftContainer.add(firePS);
         leftContainer.add(jumpPS);
+        leftContainer.getAllStyles().setAlignment(LEFT);
         this.add(BorderLayout.WEST,leftContainer);
 
 

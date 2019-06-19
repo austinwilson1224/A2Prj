@@ -16,6 +16,6 @@ public class AboutCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        //TODO
+        System.out.println("ABOUT CLICKED!");
     }
 }

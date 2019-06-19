@@ -17,11 +17,17 @@ public class PointsView extends Container implements Observer {
         //set layout to border layout
         this.setLayout(new GridLayout(1,5));
 
+
+        //creating labels for the grid
         Label points = new Label("POINTS:"+ gw.getPlayerScore());
         Label lives = new Label("LIVES:" + gw.getNumberOfLives());
         Label missiles = new Label("MISSILES:" + gw.getNumMissiles());
         Label score = new Label("SCORE:" + gw.getPlayerScore());
         Label time = new Label("TIME:" + gw.getTimeElapsed());
+
+
+
+
         this.add(points);
         this.add(lives);
         this.add(missiles);
@@ -35,6 +41,8 @@ public class PointsView extends Container implements Observer {
     @Override
     public void update(Observable o, Object arg){
         //TODO
+        //GameWorld gw = (GameWorld) o;
+
 
     }
 }
