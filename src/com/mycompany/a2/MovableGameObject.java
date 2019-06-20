@@ -8,7 +8,7 @@ package com.mycompany.a2;
  *
  * Austin Wilson & Elianna Sanchez
  */
-public abstract class MovableGameObject extends GameObject implements Imovable {
+public abstract class MovableGameObject extends GameObject implements IMovable {
     private double speed;
     private int direction;
     public static final int MIN_SPEED = 0;

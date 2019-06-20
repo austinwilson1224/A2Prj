@@ -12,6 +12,8 @@ import com.mycompany.commands.*;
 /**
  * This is the Game class which is the primary class that encapsulates the whole game
  *
+ * controller
+ *
  *
  *
  * Austin Wilson & Elianna Sanchez

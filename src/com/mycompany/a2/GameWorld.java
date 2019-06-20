@@ -10,7 +10,7 @@ import java.util.Observable;
 /**
  * This is the GameWorld class
  *
- *
+ * model
  *
  * Austin Wilson & Elianna Sanchez
  */
@@ -555,8 +555,8 @@ public class GameWorld extends Observable implements IGameWorld {
 		for(GameObject i : objects) {
 			
 			//1 update all movable objects positions 
-			if(i instanceof Imovable) {
-				((Imovable) i).move();
+			if(i instanceof IMovable) {
+				((IMovable) i).move();
 			}
 			
 			//2 update all missiles fuel levels 
