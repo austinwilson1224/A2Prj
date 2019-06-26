@@ -9,7 +9,7 @@ import com.codename1.charts.util.ColorUtil;
  * Austin Wilson & Elianna Sanchez
  */
 
-public abstract class GameObject {
+public abstract class GameObject implements ICollection{
 	
 	public final static int MIN = 0;
     protected static final java.util.Random R = new java.util.Random(); //Random value used by child class
@@ -23,44 +23,17 @@ public abstract class GameObject {
         location = new Point2D(GameWorld.WIDTH/2F,GameWorld.HEIGHT/2F);
     }
 
-
-    //methods
-
     //getters
-    /*public String getLocation(){
-        return location.toString();
-    }
-    */
     public Point2D getLocation(){
         return location;
     }
-
-
-
     public double getX(){
         return location.getX();
     }
     public double getY(){
         return location.getY();
     }
-
-
-    public int getColor(){
-        //code this later
-        return this.color;
-    }
-
-
-
-    //test function to get the [r,g,b] version of color
-    public int[] COLOR(){
-        int[] color2 = new int[2];
-        color2[0] = ColorUtil.red(color);
-        color2[1] = ColorUtil.green(color);
-        color2[2] = ColorUtil.blue(color);
-        return color2;
-    }
-
+    public int getColor(){ return this.color; }
 
     //setters
     public void setLocation(double x, double y){
@@ -86,6 +59,12 @@ public abstract class GameObject {
     	return "loc = (" + x + "," + y + ") " + "Color = " +color;
     }
 
+    public void add(){
+        //TODO
+    }
 
+    public void getIterator(){
+        //TODO
+    }
 
 }

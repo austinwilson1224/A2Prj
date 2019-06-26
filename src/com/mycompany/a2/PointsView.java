@@ -4,7 +4,6 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.GridLayout;
 
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -50,7 +49,12 @@ public class PointsView extends Container implements Observer {
     public void update(Observable o, Object arg){
         //TODO
         //GameWorld gw = (GameWorld) o;
-        Iterator<GameWorld> i;
+        //Iterator<GameWorld> i;
+        points.setText("POINTS:" +  gw.getTimeElapsed());
+        lives.setText("LIVES" + gw.getNumberOfLives());
+        missiles.setText("MISSILES:" + gw.getNumMissiles());
+        score.setText("SCORE:" + gw.getPlayerScore());
+        time.setText("TIME:" + gw.getTimeElapsed());
 
 
 

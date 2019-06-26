@@ -24,25 +24,24 @@ public class GameWorld extends Observable implements IGameWorld {
 
     public final static double HEIGHT = 1024.0;
     public final static double WIDTH = 768.0;
-    private ArrayList<GameObject> objects = new ArrayList<>();
 
+
+    private SpaceCollection collection;
+    private ArrayList<GameObject> objects = new ArrayList<>();
 
     private static PlayerShip playerShip;
     private static NonPlayerShip nonPlayerShip;
-
-
-    /**
-     * the time that the program has been running is equal to
-     * the current time minus the time that the program was created
-     */
-
 
     private int numberOfLives;
     private int playerScore;
     private int numMissiles;
     private int timeElapsed;
 
+    public GameWorld(){
+    	collection = new SpaceCollection();
+	}
 
+	//getters
     public int getNumberOfLives(){
     	return this.numberOfLives;
 	}
@@ -51,7 +50,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	}
 	public int getNumMissiles(){ return this.numMissiles; }
 	public int getTimeElapsed(){ return this.timeElapsed; }
-
+	public SpaceCollection getSpaceCollection() { return collection;}
 
 
     private final static int MAX_MISSILES = 10;
@@ -75,29 +74,34 @@ public class GameWorld extends Observable implements IGameWorld {
      */
     public void increasePSSpeed(){
         if(this.playerShip != null) {
-        	if(playerShip.getSpeed() < playerShip.MAX_SPEED)
-        		this.playerShip.increaseSpeed();
+        	if(playerShip.getSpeed() < playerShip.MAX_SPEED) {
+				this.playerShip.increaseSpeed();
+				this.setChanged();
+				this.notifyObservers();
+			}
         	else System.out.println("traveling at max speed");
         }
         else System.out.println("No player ship in the game");
     }
     public void decreasePSSpeed(){
         if(this.playerShip != null) {
-        	if(playerShip.getSpeed() > playerShip.MIN_SPEED)
+        	if(playerShip.getSpeed() > playerShip.MIN_SPEED) {
 				playerShip.decreaseSpeed();
+				this.setChanged();
+				this.notifyObservers();
+			}
         	else System.out.println("traveling at minimum speed");
 
         }
         else System.out.println("No player ship in the game");
     }
+
+    //user command r turn player ship right
     public void turnPSRight(){
         if(playerShip!=null) {
         	playerShip.turnRight();
-        	/*
-        	if(playerShip.getDirection() == 350) {
-        		playerShip.setDirection(0);
-        	}else playerShip.setDirection(playerShip.getDirection() + 1);
-        	*/
+			this.setChanged();
+			this.notifyObservers();
         }
     }
     
@@ -118,20 +122,17 @@ public class GameWorld extends Observable implements IGameWorld {
     public void turnPSLeft(){
         if(playerShip != null) {
         	playerShip.turnLeft();
-        	/*
-        	int heading = playerShip.getDirection();
-        	if(heading == 0)
-        		playerShip.setDirection(359);
-        	else playerShip.setDirection(heading - 1);
-        	*/
+			this.setChanged();
+			this.notifyObservers();
         }
     }
 
 
     //a
     public void loadNewAsteroid(){
+    	//TODO
         Asteroid asteroid = new Asteroid();
-        objects.add(asteroid);
+        collection.add(asteroid);
         System.out.println("New ASTEROID has been created");
         System.out.println(asteroid);
     }
@@ -139,7 +140,7 @@ public class GameWorld extends Observable implements IGameWorld {
     //s
     public void addPlayerShip(){
         playerShip = new PlayerShip();
-        objects.add(playerShip);
+        collection.add(playerShip);
         System.out.println("New PLAYER SHIP has been created");
         System.out.println(playerShip);
     }
@@ -188,6 +189,12 @@ public class GameWorld extends Observable implements IGameWorld {
             objects.add(missile);
             System.out.println("New missile added to the world");
             System.out.println(missile);
+
+            //playerShip controls the missiles
+			// reference in GameWorld set to same value
+            numMissiles = playerShip.getMissileCount();
+            this.setChanged();
+            this.notifyObservers();
         }
     }
 
@@ -239,7 +246,8 @@ public class GameWorld extends Observable implements IGameWorld {
 
     
     /**
-     * from the case where user input is j
+     * j
+	 *
      * this will cause the location to be reset to the center of the map
      * which is located at (512,384)
      */
@@ -259,7 +267,8 @@ public class GameWorld extends Observable implements IGameWorld {
 
 	
 	/**
-	 * user input is >
+	 * >
+	 *
 	 * this method causes the player ships missile launcher to revolve around the center
 	 * in a clockwise direction 
 	 * 
@@ -292,9 +301,10 @@ public class GameWorld extends Observable implements IGameWorld {
 
 	
 	/**
-	 * this method comes from case 'k' in game
+	 * k
+	 *
 	 * this is when an asteroid and a missile collide, the asteroid and the missile would be destroyed
-	 * 
+	 *
 	 * first check that 
 	 * 
 	 *  The program is not required to have any code that actually checks for collisions between objects; 
@@ -322,16 +332,18 @@ public class GameWorld extends Observable implements IGameWorld {
 
 		//make sure the for loop instantiated missile and asteroid 
 		//then check that they have the same location --- unnecessary 
-		if( (missile != null && asteroid != null)) {
-			objects.remove(asteroid);
-			objects.remove(missile);
-			System.out.println("Player ship killed an asteroid!");
-		}
+		if( missile != null ) {//case where there is a missile in the world
+			if (asteroid != null) {
+				objects.remove(asteroid);
+				objects.remove(missile);
+				System.out.println("Player ship killed an asteroid!");
+			}else System.out.println("No asteroids");
+		}else System.out.println("No missiles");
 	}
 
 	
 	/**
-	 * method e
+	 * e
 	 * 
 	 * this is the method that will kill and NPS
 	 * if a missile is fired from a player ship 
@@ -606,15 +618,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		return count;
 		
 	}
-	
-	public PlayerShip  findPlayerShip() {
-		for(GameObject i : objects) {
-			if(i instanceof PlayerShip) {
-				return (PlayerShip) i;
-			}
-		}
-		return null;
-	}
+
 	
 	public NonPlayerShip findNonPlayerShip() {
 		for(GameObject i : objects) {
