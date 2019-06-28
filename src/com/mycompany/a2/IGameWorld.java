@@ -6,7 +6,7 @@ public interface IGameWorld {
     int getPlayerScore();
     int getNumMissiles();
     int getTimeElapsed();
-    SpaceCollection getSpaceCollection();
+    GameObjectCollection getCollection();
     IIterator getIterator();
     void init();
     void increasePSSpeed();

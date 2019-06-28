@@ -5,11 +5,13 @@ import java.util.Observable;
 public class GameWorldProxy extends Observable implements IGameWorld {
     private GameWorld gw;
 
+    public GameWorldProxy(GameWorld gw){ this.gw = gw; }
+
     public int getNumberOfLives() { return this.gw.getNumberOfLives(); }
     public int getPlayerScore() { return this.gw.getPlayerScore(); }
     public int getNumMissiles() { return this.gw.getNumMissiles(); }
     public int getTimeElapsed() { return this.gw.getTimeElapsed(); }
-    public SpaceCollection getSpaceCollection() { return this.gw.getSpaceCollection(); }
+    public GameObjectCollection getCollection() { return this.gw.getCollection(); }
     public IIterator getIterator() { return this.gw.getIterator(); }
     public void init() { this.gw.init(); }
     public void increasePSSpeed() { this.gw.increasePSSpeed(); }
@@ -39,9 +41,4 @@ public class GameWorldProxy extends Observable implements IGameWorld {
     public void printMap() { this.gw.printMap(); }
     public void print() { this.gw.print(); }
     public void quit() { this.gw.quit(); }
-
-
-    public void update(Observable o, Object arg){
-
-    }
 }

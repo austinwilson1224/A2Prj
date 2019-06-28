@@ -47,7 +47,6 @@ public class PointsView extends Container implements Observer {
     }
     @Override
     public void update(Observable o, Object arg){
-        //TODO
         GameWorld gw = (GameWorld) o;
         //Iterator<GameWorld> i;
         points.setText("POINTS:" +  gw.getTimeElapsed());

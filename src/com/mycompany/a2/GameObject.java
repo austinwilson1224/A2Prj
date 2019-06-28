@@ -1,5 +1,6 @@
 package com.mycompany.a2;
 
+import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point2D;
 import com.codename1.charts.util.ColorUtil;
 
@@ -9,7 +10,7 @@ import com.codename1.charts.util.ColorUtil;
  * Austin Wilson & Elianna Sanchez
  */
 
-public abstract class GameObject {
+public abstract class GameObject implements IDrawable{
 	
 	public final static int MIN = 0;
     protected static final java.util.Random R = new java.util.Random(); //Random value used by child class
@@ -57,6 +58,14 @@ public abstract class GameObject {
     	double x = Math.round(this.location.getX());
     	double y = Math.round(this.location.getY());
     	return "loc = (" + x + "," + y + ") " + "Color = " +color;
+    }
+
+    @Override
+    public void draw(Graphics graphics, Point2D point){
+        int x = (int) (point.getX() + this.getX() );
+        int y = (int) (point.getY() + this.getY() );
+        graphics.setColor(this.getColor());
+        graphics.fillArc(x,y,10,10,0,360);
     }
 
 }

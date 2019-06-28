@@ -6,6 +6,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
 import com.mycompany.commands.*;
 
 
@@ -36,22 +37,12 @@ public class Game extends Form {
 
         gw = new GameWorld();
         gw.init();
-        mv = new MapView();
+        mv = new MapView(gw);
         pv = new PointsView(gw);
         gw.addObserver(mv);
         gw.addObserver(pv);
         this.show();
-
-
-
         playA2();
-
-
-        /**
-        old code
-        gw.init();
-        play();
-        */
     }
 
     public void playA2() {
@@ -83,22 +74,21 @@ public class Game extends Form {
         toolbar.addCommandToLeftSideMenu(save);
         toolbar.addCommandToLeftSideMenu(quit);
         toolbar.addComponentToLeftSideMenu(sound);
-        //toolbar.getAllStyles().setAlignment(2);
 
 
         //Points View is held in the top container
         Container topContainer = new Container();
+        topContainer.getAllStyles().setBorder(Border.createLineBorder(5));
         topContainer.add(pv);
         this.add(BorderLayout.NORTH,topContainer);
-
-
-
-
-
-        //this will be the left container
+        //commands in left container
         Container leftContainer = new Container();
+        leftContainer.getAllStyles().setBorder(Border.createLineBorder(5));
         leftContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
         leftContainer.getAllStyles().setAlignment(LEFT);
+
+
+
 
         //buttons to add
         Button addAsteroid = new Button("+Asteroid");
@@ -111,7 +101,6 @@ public class Game extends Form {
 
 
         //initiaizing commands
-        AboutCommand aboutCommand = new AboutCommand(gw);
         AddAsteroidCommand addAsteroidCommand = new AddAsteroidCommand(gw);
         AddNPSCommand addNPSCommand = new AddNPSCommand(gw);
         AddPlayerShipCommand addPlayerShipCommand = new AddPlayerShipCommand(gw);
@@ -122,7 +111,6 @@ public class Game extends Form {
         IncreasePSSpeedCommand increasePSSpeedCommand = new IncreasePSSpeedCommand(gw);
         JumpCommand jumpCommand = new JumpCommand(gw);
         LoadPSMissilesCommand loadPSMissilesCommand = new LoadPSMissilesCommand(gw);
-        NewCommand newCommand = new NewCommand(gw);
         NPSFireCommand npsFireCommand = new NPSFireCommand(gw);
         NPSMissileHitPSCommand npsMissileHitPSCommand = new NPSMissileHitPSCommand(gw);
         PSFireCommand psFireCommand = new PSFireCommand(gw);
@@ -131,14 +119,11 @@ public class Game extends Form {
         PSMissileHitAsteroidCommand psMissileHitAsteroidCommand = new PSMissileHitAsteroidCommand(gw);
         PSMissileHitNPSCommand psMissileHitNPSCommand = new PSMissileHitNPSCommand(gw);
         QuitCommand quitCommand = new QuitCommand(gw);
-        SaveCommand saveCommand = new SaveCommand(gw);
-        SoundCommand soundCommand = new SoundCommand(gw);
         TickCommand tickCommand = new TickCommand(gw);
         TurnMLLeftCommand turnMLLeftCommand = new TurnMLLeftCommand(gw);
         TurnMLRightCommand turnMLRightCommand = new TurnMLRightCommand(gw);
         TurnPlayerShipRightCommand turnPlayerShipRightCommand = new TurnPlayerShipRightCommand(gw);
         TurnPlayerShipLeftCommand turnPlayerShipLeftCommand = new TurnPlayerShipLeftCommand(gw);
-
 
         //other comands
         PrintCommand printCommand = new PrintCommand(gw);
@@ -233,7 +218,7 @@ public class Game extends Form {
 
 
         //q = quit
-        this.addKeyListener(113,quit);
+        this.addKeyListener(113,quitCommand);
 
 
         //associating the command with correct buttons
@@ -257,22 +242,13 @@ public class Game extends Form {
         this.add(BorderLayout.WEST,leftContainer);
 
 
-
-        /*
-        this.add(new GridLayout(5,1));
-        this.setLayout(new GridLayout(5,1));
-        Label points = new Label("POINTS");
-        this.add(points);
-        */
-
-
-
+        //MapView
+        Container centerContainer = new Container();
+        centerContainer.add(mv);
+        this.add(BorderLayout.CENTER,centerContainer);
 
 
     }
-
-
-
     public void playA1(){
         //code later
         Label myLabel = new Label("Enter a command:");
@@ -425,8 +401,6 @@ public class Game extends Form {
         });
 
     }
-
-
     public void quit(){
         System.exit(0);
     }
