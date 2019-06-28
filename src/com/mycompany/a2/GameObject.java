@@ -43,6 +43,9 @@ public abstract class GameObject implements IDrawable{
     public void setColor(int r, int g, int b){
         this.color = ColorUtil.rgb(r,g,b);
     }
+    public void setColor(int color) {
+        this.color = color;
+    }
     public void setX(double x){
         this.location.setX(x);
     }
@@ -66,6 +69,7 @@ public abstract class GameObject implements IDrawable{
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
         graphics.fillArc(x,y,10,10,0,360);
+        System.out.println("Drawing...");
     }
 
 }

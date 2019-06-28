@@ -33,10 +33,6 @@ public class GameObjectCollection implements ICollection {
         //two private fields for access
         private int index = 0;
 
-        public SpaceVectorIterator(){
-            index = -1;
-        }
-
         public boolean hasNext(){
             return this.index < GameObjectCollection.this.collection.size();
         }

@@ -10,20 +10,21 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MapView extends Container implements Observer {
-    private GameWorld gw;
+    private IGameWorld gw;
 
 
 
-    public MapView(GameWorld gw){
-        this.gw = gw;
-        this.getAllStyles().setBorder(Border.createLineBorder(30,ColorUtil.BLACK));
+    public MapView(){
+        this.getAllStyles().setBorder(Border.createLineBorder(5,ColorUtil.BLACK));
         this.getAllStyles().setBgColor(ColorUtil.BLACK);
-        repaint();
     }
 
     @Override
     public void paint(Graphics g){
         super.paint(g);
+
+        if(this.gw == null) return;
+
         Point2D parentsPosition = new Point2D(this.getX(),this.getY());
         IIterator iterator = gw.getIterator();
         while(iterator.hasNext()){
@@ -35,10 +36,17 @@ public class MapView extends Container implements Observer {
 
     @Override
     public void update(Observable o, Object arg){
-        IGameWorld gw = (IGameWorld) o;
-        IIterator iterator = gw.getIterator();
-        while(iterator.hasNext()){
-            repaint();
-        }
+        //use arg here for full points on proxy
+        //IGameWorld gw = (IGameWorld) arg;
+        this.gw = (IGameWorld)o;
+        this.repaint();
+//        IIterator iterator = gw.getIterator();
+//        while(iterator.hasNext()){
+//            repaint();
+//            GameObject go = (GameObject) iterator.getNext();
+//            if(go instanceof IDrawable){
+//                //go.draw(o, new Point2D(this.getX(),this.getY()));
+//            }
+//        }
     }
 }

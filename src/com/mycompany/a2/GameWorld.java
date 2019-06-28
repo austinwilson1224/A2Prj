@@ -441,6 +441,8 @@ public class GameWorld extends Observable implements IGameWorld {
 
 	//t
 	public void tick() {
+		timeElapsed++;
+
 		IIterator iterator = collection.getIterator();
     	while(iterator.hasNext()){
 
@@ -465,12 +467,12 @@ public class GameWorld extends Observable implements IGameWorld {
 				if(timeElapsed % ((SpaceStation)object).getBlinkRate()  == 0)
 					((SpaceStation)object).toggleBlinker();
 			}
-			//4 increment time elapsed by 1 
-			timeElapsed++;
+			//4 increment time elapsed by 1
 		}
-		System.out.println("GAME TICKED");
+
 		this.setChanged();
-		this.notifyObservers(new GameWorldProxy(this));
+		//this.notifyObservers(new GameWorldProxy(this));
+		this.notifyObservers();
 	}
 	
 	

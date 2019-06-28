@@ -47,9 +47,12 @@ public class PointsView extends Container implements Observer {
     }
     @Override
     public void update(Observable o, Object arg){
+
+        //use arg here for full points on proxy
+        //IGameWorld gw = (IGameWorld) arg;
         GameWorld gw = (GameWorld) o;
         //Iterator<GameWorld> i;
-        points.setText("POINTS:" +  gw.getTimeElapsed());
+        points.setText("POINTS:" +  gw.getPlayerScore());
         lives.setText("LIVES" + gw.getNumberOfLives());
         missiles.setText("MISSILES:" + gw.getNumMissiles());
         score.setText("SCORE:" + gw.getPlayerScore());

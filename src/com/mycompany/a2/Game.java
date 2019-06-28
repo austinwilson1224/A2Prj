@@ -7,6 +7,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
+import com.codename1.ui.util.UITimer;
 import com.mycompany.commands.*;
 
 
@@ -20,7 +21,7 @@ import com.mycompany.commands.*;
  * Austin Wilson & Elianna Sanchez
  */
 
-public class Game extends Form {
+public class Game extends Form implements Runnable {
 
     //fields
     private GameWorld gw;
@@ -37,7 +38,7 @@ public class Game extends Form {
 
         gw = new GameWorld();
         gw.init();
-        mv = new MapView(gw);
+        mv = new MapView();
         pv = new PointsView(gw);
         gw.addObserver(mv);
         gw.addObserver(pv);
@@ -243,11 +244,11 @@ public class Game extends Form {
 
 
         //MapView
-        Container centerContainer = new Container();
-        centerContainer.add(mv);
-        this.add(BorderLayout.CENTER,centerContainer);
+        //Container centerContainer = new Container();
+        //centerContainer.add(mv);
+        this.add(BorderLayout.CENTER,mv);
 
-
+        UITimer.timer(100, true, this);
     }
     public void playA1(){
         //code later
@@ -403,5 +404,10 @@ public class Game extends Form {
     }
     public void quit(){
         System.exit(0);
+    }
+
+    @Override
+    public void run() {
+        this.gw.tick();
     }
 }
