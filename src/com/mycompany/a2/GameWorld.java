@@ -23,13 +23,14 @@ public class GameWorld extends Observable implements IGameWorld {
 
     public final static double HEIGHT = 1024.0;
     public final static double WIDTH = 768.0;
+	private final static int MAX_MISSILES = 10;
     private SpaceCollection collection;
     private static PlayerShip playerShip;
-    private static NonPlayerShip nonPlayerShip;
     private int numberOfLives;
     private int playerScore;
     private int numMissiles;
     private int timeElapsed;
+
 
     public GameWorld(){
     	collection = new SpaceCollection();
@@ -42,17 +43,12 @@ public class GameWorld extends Observable implements IGameWorld {
 	public int getPlayerScore(){
     	return this.playerScore;
 	}
-	public int getNumMissiles(){ return this.numMissiles; }
-	public int getTimeElapsed(){ return this.timeElapsed; }
-	public SpaceCollection getSpaceCollection() { return collection;}
+	public int getNumMissiles() { return this.numMissiles; }
+	public int getTimeElapsed() { return this.timeElapsed; }
+	public SpaceCollection getSpaceCollection() { return collection; }
+	public IIterator getIterator() { return collection.getIterator(); }
 
-
-    private final static int MAX_MISSILES = 10;
-
-
-
-
-    public void init(){
+	public void init(){
         numberOfLives = 3;
         playerScore = 0;
         numMissiles = MAX_MISSILES;
@@ -128,7 +124,7 @@ public class GameWorld extends Observable implements IGameWorld {
 
     //y
     public void addNonPlayerShip(){
-        nonPlayerShip = new NonPlayerShip();
+        NonPlayerShip nonPlayerShip = new NonPlayerShip();
         collection.add(nonPlayerShip);
         System.out.println("New NON PLAYER SHIP has been created");
         System.out.println(nonPlayerShip);
@@ -174,6 +170,7 @@ public class GameWorld extends Observable implements IGameWorld {
 
 	//L
     public void fireMissileNPS(){
+    	NonPlayerShip nonPlayerShip = findNonPlayerShip();
         if(nonPlayerShip == null){
             System.out.print("NO NON PLAYER SHIP IN GAME");
             return;
