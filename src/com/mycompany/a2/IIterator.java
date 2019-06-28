@@ -4,4 +4,5 @@ public interface IIterator {
 
     boolean hasNext();
     Object getNext();
+    Object getCurrentObject();
 }

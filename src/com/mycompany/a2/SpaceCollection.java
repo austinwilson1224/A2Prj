@@ -8,6 +8,15 @@ public class SpaceCollection implements ICollection {
 
     private Vector theCollection;
 
+
+    public Vector getTheCollection() {
+        return theCollection;
+    }
+
+    public int size() {
+        return theCollection.size();
+    }
+
     public SpaceCollection(){
         theCollection = new Vector();
     }
@@ -15,12 +24,15 @@ public class SpaceCollection implements ICollection {
     public void add(Object newObject){
         theCollection.add(newObject);
     }
+    public void remove(Object object) { theCollection.remove(object); }
 
     public IIterator getIterator(){
         return new SpaceVectorIterator();
     }
 
 
+
+    //this is the nested private class
     private  class SpaceVectorIterator implements IIterator{
 
         //two private fields for access
@@ -41,6 +53,12 @@ public class SpaceCollection implements ICollection {
         public Object getNext() {
             index++;
             return (theCollection.elementAt(index));
+        }
+        public Object getCurrentObject() {
+            if(index >= 0) {
+                return (theCollection.elementAt(index));
+            }
+            return null;
         }
     }
 

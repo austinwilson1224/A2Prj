@@ -1,6 +1,7 @@
 package com.mycompany.commands;
 
 import com.codename1.ui.Command;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
@@ -16,6 +17,7 @@ public class AboutCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        Boolean about = Dialog.show("About","this is my asteroids game","ok","canel");
         System.out.println("ABOUT CLICKED!");
     }
 }

@@ -19,8 +19,6 @@ public class QuitCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        //TODO
-        //gw.quit();
         Boolean bOk = Dialog.show("Confirm quit","Are you sure you want to quit?", "Ok","Canel");
         if(bOk){
             Display.getInstance().exitApplication();

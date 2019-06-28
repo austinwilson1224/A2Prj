@@ -15,6 +15,8 @@ public class NewCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        //TODO
+        gw.init();
+        //this.setChanged();
+        gw.notifyObservers();
     }
 }

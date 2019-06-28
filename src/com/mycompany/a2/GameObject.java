@@ -9,7 +9,7 @@ import com.codename1.charts.util.ColorUtil;
  * Austin Wilson & Elianna Sanchez
  */
 
-public abstract class GameObject implements ICollection{
+public abstract class GameObject {
 	
 	public final static int MIN = 0;
     protected static final java.util.Random R = new java.util.Random(); //Random value used by child class
@@ -57,14 +57,6 @@ public abstract class GameObject implements ICollection{
     	double x = Math.round(this.location.getX());
     	double y = Math.round(this.location.getY());
     	return "loc = (" + x + "," + y + ") " + "Color = " +color;
-    }
-
-    public void add(){
-        //TODO
-    }
-
-    public void getIterator(){
-        //TODO
     }
 
 }

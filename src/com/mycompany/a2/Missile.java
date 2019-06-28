@@ -6,13 +6,15 @@ import com.codename1.ui.geom.Point2D;
  */
 public class Missile extends MovableGameObject {
     private int fuelLevel;
+    private boolean isPlayer;
 
 
-    public Missile(double missileSpeed, int missileDirection, Point2D missileLocation){
+    public Missile(double missileSpeed, int missileDirection, Point2D missileLocation, boolean isPlayer){
         super.setSpeed(missileSpeed);
         super.setDirection(missileDirection);
         super.setLocation(missileLocation.getX(),missileLocation.getY());
         fuelLevel = 15;
+        this.isPlayer = isPlayer;
     }
     
     //setter
@@ -27,6 +29,9 @@ public class Missile extends MovableGameObject {
     //getter
     public int getFuelLevel() {
     	return this.fuelLevel;
+    }
+    public boolean isPlayer(){
+        return isPlayer;
     }
 
 
