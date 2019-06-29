@@ -2,6 +2,7 @@ package com.mycompany.a2;
 
 
 import com.codename1.ui.geom.Point2D;
+
 import java.util.Observable;
 
 
@@ -21,8 +22,8 @@ public class GameWorld extends Observable implements IGameWorld {
 
 
 
-    public final static double HEIGHT = 1024.0;
-    public final static double WIDTH = 768.0;
+    public  static double HEIGHT;
+    public  static double WIDTH;
 	private final static int MAX_MISSILES = 10;
     private GameObjectCollection collection;
     private static PlayerShip playerShip;
@@ -47,6 +48,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	public int getTimeElapsed() { return this.timeElapsed; }
 	public GameObjectCollection getCollection() { return collection; }
 	public IIterator getIterator() { return collection.getIterator(); }
+	//public double getHEIGHT() { return GameWorld.WIDTH; }
 
 	public void init(){
         numberOfLives = 3;
@@ -145,7 +147,8 @@ public class GameWorld extends Observable implements IGameWorld {
             return;
         }
         //this will only return true if the ship has missiles available to fire
-        if (playerShip.fireMissiles()){
+        if (numMissiles > 0){ //playerShip.fireMissiles()){
+        	numMissiles--;
             //compute missile location, speed, and heading
             Point2D missileLocation = playerShip.getLocation();
             //ship speed plus constant value is 5
@@ -155,12 +158,15 @@ public class GameWorld extends Observable implements IGameWorld {
             collection.add(missile);
             System.out.println("New missile added to the world");
             System.out.println(missile);
-            //playerShip controls the missiles
+			System.out.println("PLAYER SHIP Missile Fired!\n" + numMissiles + " missiles left");
+
+			//playerShip controls the missiles
 			// reference in GameWorld set to same value
-            numMissiles = playerShip.getMissileCount();
+            //numMissiles = playerShip.getMissileCount();
             this.setChanged();
             this.notifyObservers(new GameWorldProxy((this)));
         }
+        else System.out.println("No missiles left!");
     }
 
 	//L

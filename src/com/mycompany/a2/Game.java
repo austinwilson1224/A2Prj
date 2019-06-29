@@ -27,6 +27,16 @@ public class Game extends Form implements Runnable {
     private GameWorld gw;
     private MapView mv;
     private PointsView pv;
+    private static double HEIGHT;
+    private static double WIDTH;
+
+
+    public double getHEIGHT() { return Game.HEIGHT; }
+    public double getWIDTH() { return Game.WIDTH; }
+
+    public void setHEIGHT(double height) { this.HEIGHT = height; }
+    public void setWIDTH(double width) { this.WIDTH = width; }
+
 
 
 
@@ -43,6 +53,9 @@ public class Game extends Form implements Runnable {
         gw.addObserver(mv);
         gw.addObserver(pv);
         this.show();
+        //setHEIGHT(super.getHeight());
+        //setWIDTH(super.getWidth());
+
         playA2();
     }
 
@@ -67,14 +80,16 @@ public class Game extends Form implements Runnable {
         Command undo = new UndoCommand(gw);
         Command save = new SaveCommand(gw);
         Command quit = new QuitCommand(gw);
-        CheckBox sound = new CheckBox("sound");
-        sound.getAllStyles().setBgTransparency(255);
+
+        //CheckBox sound = new CheckBox("sound");
+
+
         toolbar.addCommandToLeftSideMenu(about);
         toolbar.addCommandToLeftSideMenu(New);
         toolbar.addCommandToLeftSideMenu(undo);
         toolbar.addCommandToLeftSideMenu(save);
         toolbar.addCommandToLeftSideMenu(quit);
-        toolbar.addComponentToLeftSideMenu(sound);
+
 
 
         //Points View is held in the top container
@@ -249,6 +264,21 @@ public class Game extends Form implements Runnable {
         this.add(BorderLayout.CENTER,mv);
 
         UITimer.timer(100, true, this);
+
+
+
+        //sound
+        Command soundCommand = new SoundCommand(gw);
+        CheckBox sound = new CheckBox("Sound");
+        sound.setCommand(soundCommand);
+        toolbar.addComponentToLeftSideMenu(sound);
+        sound.getAllStyles().setBgTransparency(255);
+
+        this.show();
+
+
+
+
     }
     public void playA1(){
         //code later

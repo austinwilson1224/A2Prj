@@ -1,5 +1,8 @@
 package com.mycompany.a2;
 
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point2D;
+
 public class PlayerShip extends Ship implements ISteerable{
     private SteerableMissileLauncher launcher;
 
@@ -28,16 +31,12 @@ public class PlayerShip extends Ship implements ISteerable{
         
     }
 
-    public void reloadMissiles(){
-        super.setMissileCount(10);
-    }
-    
-    
+    //public void reloadMissiles(){ super.setMissileCount(10); }
     //getter
     public SteerableMissileLauncher getLauncher() {
     	return this.launcher;
     }
-
+    /*
     public boolean fireMissiles() {
     	if(this.getMissileCount() > 0) {
     		decrementMissileCount();
@@ -48,14 +47,9 @@ public class PlayerShip extends Ship implements ISteerable{
     		System.out.println("PS out of missiles");
     		return false;
     	}
-        
     }
-    
-    
-    
-    
-    //interfaces and overwritten methods 
-    
+    */
+
     @Override
     public void turnLeft() {
     	if(this.getDirection() == 0) {
@@ -74,5 +68,14 @@ public class PlayerShip extends Ship implements ISteerable{
                 " missiles = " + getMissileCount() +
                 " Missile Launcher dir = " + getLauncher().getDirection()
         );
+    }
+    @Override
+    public void draw(Graphics graphics, Point2D point){
+        int x = (int) (point.getX() + this.getX() );
+        int y = (int) (point.getY() + this.getY() );
+        graphics.setColor(this.getColor());
+        graphics.drawRect(x,y,20,20,5);
+        graphics.fillRect(x,y,20,20);
+        System.out.println("Drawing...");
     }
 }
