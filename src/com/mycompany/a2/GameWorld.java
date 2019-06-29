@@ -22,8 +22,8 @@ public class GameWorld extends Observable implements IGameWorld {
 
 
 
-    public  static double HEIGHT;
-    public  static double WIDTH;
+    public  static double HEIGHT = 1024.0;
+    public  static double WIDTH = 768.0;
 	private final static int MAX_MISSILES = 10;
     private GameObjectCollection collection;
     private static PlayerShip playerShip;
