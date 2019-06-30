@@ -15,8 +15,8 @@ import java.util.Observer;
 public class PointsView extends Container implements Observer {
 
 
-    private Label points, lives, missiles, score, time;
-    private GameWorld gw;
+    private Label points, lives, missiles,  time;
+    private IGameWorld gw;
 
     public PointsView(GameWorld gw) {
 
@@ -29,7 +29,6 @@ public class PointsView extends Container implements Observer {
         points = new Label("POINTS:"+ gw.getPlayerScore());
         lives = new Label("LIVES:" + gw.getNumberOfLives());
         missiles = new Label("MISSILES:" + gw.getNumMissiles());
-        score = new Label("SCORE:" + gw.getPlayerScore());
         time = new Label("TIME:" + gw.getTimeElapsed());
 
 
@@ -38,7 +37,6 @@ public class PointsView extends Container implements Observer {
         this.add(points);
         this.add(lives);
         this.add(missiles);
-        this.add(score);
         this.add(time);
 
 
@@ -49,14 +47,13 @@ public class PointsView extends Container implements Observer {
     public void update(Observable o, Object arg){
 
         //use arg here for full points on proxy
-        //IGameWorld gw = (IGameWorld) arg;
-        GameWorld gw = (GameWorld) o;
+        //IGameWorld gw = (IGameWorld) o;
+        gw = (IGameWorld) o;
         //Iterator<GameWorld> i;
-        points.setText("POINTS:" +  gw.getPlayerScore());
-        lives.setText("LIVES" + gw.getNumberOfLives());
-        missiles.setText("MISSILES:" + gw.getNumMissiles());
-        score.setText("SCORE:" + gw.getPlayerScore());
-        time.setText("TIME:" + gw.getTimeElapsed());
+        points.setText("POINTS: " +  gw.getPlayerScore());
+        lives.setText("LIVES: " + gw.getNumberOfLives());
+        missiles.setText("MISSILES: " + gw.getNumMissiles());
+        time.setText("TIME: " + gw.getTimeElapsed());
 
 
 

@@ -21,7 +21,7 @@ public class PlayerShip extends Ship implements ISteerable{
      */
     public PlayerShip(){
         //super();
-        setLocation(512,384);
+        setLocation(Game.getWIDTH() / 2,Game.getHEIGHT() / 2 );
         setSpeed(0);
         setDirection(0);
         setMissileCount(10);
@@ -30,25 +30,10 @@ public class PlayerShip extends Ship implements ISteerable{
         launcher.setDirection(this.getDirection());
         
     }
-
-    //public void reloadMissiles(){ super.setMissileCount(10); }
     //getter
     public SteerableMissileLauncher getLauncher() {
     	return this.launcher;
     }
-    /*
-    public boolean fireMissiles() {
-    	if(this.getMissileCount() > 0) {
-    		decrementMissileCount();
-    		System.out.println("PLAYER SHIP Missile Fired!\n" + super.getMissileCount() + " missiles left");
-    		return true;
-    	}
-    	else {
-    		System.out.println("PS out of missiles");
-    		return false;
-    	}
-    }
-    */
 
     @Override
     public void turnLeft() {
@@ -74,8 +59,6 @@ public class PlayerShip extends Ship implements ISteerable{
         int x = (int) (point.getX() + this.getX() );
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
-        graphics.drawRect(x,y,20,20,5);
-        graphics.fillRect(x,y,20,20);
-        System.out.println("Drawing...");
+        graphics.drawRect(x,y,50,50,5);
     }
 }

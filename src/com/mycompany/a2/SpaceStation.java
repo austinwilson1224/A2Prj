@@ -1,6 +1,9 @@
 package com.mycompany.a2;
 
 
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point2D;
+
 /**
  * Austin Wilson & Elianna Sanchez
  */
@@ -8,7 +11,7 @@ public class SpaceStation extends FixedGameObject {
     //fields
     private int blinkRate;
     private boolean blinkerOn;
-    private final int MINBLINKRATE = 0;
+    private final int MINBLINKRATE = 1;
     private final int MAXBLINKRATE = 6;
 
     /**
@@ -19,6 +22,8 @@ public class SpaceStation extends FixedGameObject {
      * because it was not specified
      */
     public SpaceStation(){
+        double w = R.nextDouble(), h = R.nextDouble();
+        setLocation(Game.getWIDTH() * w, Game.getHEIGHT() * h);
         this.blinkRate = GameObject.R.nextInt(MAXBLINKRATE - MINBLINKRATE );
         this.blinkerOn = true;
         super.setColor(225, 225, 225); //white
@@ -52,4 +57,14 @@ public class SpaceStation extends FixedGameObject {
                 " rate = " + blinkRate
         );
     }
+
+    @Override
+    public void draw(Graphics graphics, Point2D point){
+        int x = (int) (point.getX() + this.getX() );
+        int y = (int) (point.getY() + this.getY() );
+        graphics.setColor(this.getColor());
+        graphics.drawRect(x,y,100,100,5);
+        //graphics.fillArc(x,y,10,10,0,360);
+    }
+
 }

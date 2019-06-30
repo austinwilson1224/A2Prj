@@ -12,7 +12,7 @@ import com.codename1.charts.util.ColorUtil;
 
 public abstract class GameObject implements IDrawable{
 	
-	public final static int MIN = 0;
+	//public final static int MIN = 0;
     protected static final java.util.Random R = new java.util.Random(); //Random value used by child class
     private Point2D location;
     private int color;
@@ -21,7 +21,7 @@ public abstract class GameObject implements IDrawable{
     //constructor
     //initialize objects to the center of the world
     public GameObject(){
-        location = new Point2D(GameWorld.WIDTH/2F,GameWorld.HEIGHT/2F);
+        location = new Point2D(Game.getWIDTH(),Game.getHEIGHT());
     }
 
     //getters
@@ -69,7 +69,6 @@ public abstract class GameObject implements IDrawable{
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
         graphics.fillArc(x,y,10,10,0,360);
-        System.out.println("Drawing...");
     }
 
 }

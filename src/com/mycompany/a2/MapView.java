@@ -38,7 +38,7 @@ public class MapView extends Container implements Observer {
     public void update(Observable o, Object arg){
         //use arg here for full points on proxy
         //IGameWorld gw = (IGameWorld) arg;
-        this.gw = (IGameWorld)o;
+        this.gw = (IGameWorld) o;
         this.repaint();
 //        IIterator iterator = gw.getIterator();
 //        while(iterator.hasNext()){

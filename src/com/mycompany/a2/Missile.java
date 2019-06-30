@@ -10,36 +10,22 @@ public class Missile extends MovableGameObject {
 
 
     public Missile(double missileSpeed, int missileDirection, Point2D missileLocation, boolean isPlayer){
-        super.setSpeed(missileSpeed);
-        super.setDirection(missileDirection);
-        super.setLocation(missileLocation.getX(),missileLocation.getY());
+        setSpeed(missileSpeed);
+        setDirection(missileDirection);
+        setLocation(missileLocation.getX(),missileLocation.getY());
         fuelLevel = 15;
         this.isPlayer = isPlayer;
     }
-    
-    //setter
-    public void setFuelLevel(int level) {
-    	if(level < 0)
-    		return;
-    	else if(level + fuelLevel > 15)
-    		return;
-    	else fuelLevel = level;
-    }
-    
     //getter
     public int getFuelLevel() {
     	return this.fuelLevel;
     }
-    public boolean isPlayer(){
-        return isPlayer;
-    }
+    public boolean isPlayer() { return isPlayer; }
 
 
     public void decrementFuelLevel(){
-    	if(this.fuelLevel > 0) {
+    	if(this.fuelLevel > 0)
     		fuelLevel--;
-    
-    	}
     }
 
     @Override

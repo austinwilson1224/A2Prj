@@ -1,12 +1,10 @@
 package com.mycompany.a2;
-//package com.mycompany.commands;
 
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.Border;
 import com.codename1.ui.util.UITimer;
 import com.mycompany.commands.*;
 
@@ -15,8 +13,6 @@ import com.mycompany.commands.*;
  * This is the Game class which is the primary class that encapsulates the whole game
  *
  * controller
- *
- *
  *
  * Austin Wilson & Elianna Sanchez
  */
@@ -27,15 +23,13 @@ public class Game extends Form implements Runnable {
     private GameWorld gw;
     private MapView mv;
     private PointsView pv;
-    private static double HEIGHT;
-    private static double WIDTH;
+    private static int HEIGHT;
+    private static int WIDTH;
 
 
-    public double getHEIGHT() { return Game.HEIGHT; }
-    public double getWIDTH() { return Game.WIDTH; }
+    public static int getHEIGHT() { return Game.HEIGHT; }
+    public static int getWIDTH() { return Game.WIDTH; }
 
-    public void setHEIGHT(double height) { this.HEIGHT = height; }
-    public void setWIDTH(double width) { this.WIDTH = width; }
 
 
 
@@ -53,9 +47,6 @@ public class Game extends Form implements Runnable {
         gw.addObserver(mv);
         gw.addObserver(pv);
         this.show();
-        //setHEIGHT(super.getHeight());
-        //setWIDTH(super.getWidth());
-
         playA2();
     }
 
@@ -75,13 +66,12 @@ public class Game extends Form implements Runnable {
 
 
         //commands
-        Command about = new AboutCommand(gw);
-        Command New = new NewCommand(gw);
-        Command undo = new UndoCommand(gw);
-        Command save = new SaveCommand(gw);
-        Command quit = new QuitCommand(gw);
+        AboutCommand about = new AboutCommand(gw);
+        NewCommand New = new NewCommand(gw);
+        UndoCommand undo = new UndoCommand(gw);
+        SaveCommand save = new SaveCommand(gw);
+        QuitCommand quit = new QuitCommand(gw);
 
-        //CheckBox sound = new CheckBox("sound");
 
 
         toolbar.addCommandToLeftSideMenu(about);
@@ -94,12 +84,12 @@ public class Game extends Form implements Runnable {
 
         //Points View is held in the top container
         Container topContainer = new Container();
-        topContainer.getAllStyles().setBorder(Border.createLineBorder(5));
+        //topContainer.getAllStyles().setBorder(Border.createLineBorder(5));
         topContainer.add(pv);
         this.add(BorderLayout.NORTH,topContainer);
         //commands in left container
         Container leftContainer = new Container();
-        leftContainer.getAllStyles().setBorder(Border.createLineBorder(5));
+        //kleftContainer.getAllStyles().setBorder(Border.createLineBorder(5));
         leftContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
         leftContainer.getAllStyles().setAlignment(LEFT);
 
@@ -107,12 +97,12 @@ public class Game extends Form implements Runnable {
 
 
         //buttons to add
-        Button addAsteroid = new Button("+Asteroid");
-        Button addNPS = new Button("+NPS");
-        Button addStation = new Button("+Station");
-        Button addPlayerShip = new Button("+PlayerShip");
-        Button firePS = new Button("Fire PS");
-        Button jumpPS = new Button("Jump PS");
+        MyButton addAsteroid = new MyButton("+Asteroid");
+        MyButton addNPS = new MyButton("+NPS");
+        MyButton addStation = new MyButton("+Station");
+        MyButton addPlayerShip = new MyButton("+PlayerShip");
+        MyButton firePS = new MyButton("Fire PS");
+        MyButton jumpPS = new MyButton("Jump PS");
 
 
 
@@ -199,7 +189,7 @@ public class Game extends Form implements Runnable {
         this.addKeyListener(101,psHitsNPSCommand);
 
         //E = NPS missile struck and killed PS
-        this.addKeyListener(121,npsMissileHitPSCommand);
+        this.addKeyListener('E',npsMissileHitPSCommand);
 
         //c = PS crashed into an asteroid
         this.addKeyListener(99,psHitsAsteroidCommand);
@@ -221,8 +211,6 @@ public class Game extends Form implements Runnable {
 
         //m = print a map
         this.addKeyListener(109,mapCommand);
-
-
 
 
 
@@ -259,16 +247,13 @@ public class Game extends Form implements Runnable {
 
 
         //MapView
-        //Container centerContainer = new Container();
-        //centerContainer.add(mv);
         this.add(BorderLayout.CENTER,mv);
-
         UITimer.timer(100, true, this);
 
 
 
         //sound
-        Command soundCommand = new SoundCommand(gw);
+        SoundCommand soundCommand = new SoundCommand(gw);
         CheckBox sound = new CheckBox("Sound");
         sound.setCommand(soundCommand);
         toolbar.addComponentToLeftSideMenu(sound);
@@ -276,9 +261,8 @@ public class Game extends Form implements Runnable {
 
         this.show();
 
-
-
-
+        Game.WIDTH = mv.getWidth();
+        Game.HEIGHT = mv.getHeight();
     }
     public void playA1(){
         //code later
@@ -432,9 +416,7 @@ public class Game extends Form implements Runnable {
         });
 
     }
-    public void quit(){
-        System.exit(0);
-    }
+    public void quit(){ System.exit(0); }
 
     @Override
     public void run() {

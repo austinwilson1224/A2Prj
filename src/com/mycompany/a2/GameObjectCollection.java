@@ -32,6 +32,7 @@ public class GameObjectCollection implements ICollection {
 
         //two private fields for access
         private int index = 0;
+        public void decrementIndex() { if (index > 0) index--; }
 
         public boolean hasNext(){
             return this.index < GameObjectCollection.this.collection.size();

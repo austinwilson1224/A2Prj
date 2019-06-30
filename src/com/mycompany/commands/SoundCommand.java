@@ -11,10 +11,14 @@ public class SoundCommand extends Command {
     private BgSound bGSound;
     private boolean bPause = false;
 
-    public SoundCommand(GameWorld gw){
+    //public void bPause(boolean bPause) { this.bPause = bPause; }
+
+    public SoundCommand(GameWorld gw) {
         super("Sound Check box");
         this.gw = gw;
-        bGSound = new BgSound("background.mp3");
+        if (gw.soundOn()) {
+            bGSound = new BgSound("Rick-and-Morty-Theme-Song.mp3");
+        }
     }
 
     @Override
@@ -22,6 +26,10 @@ public class SoundCommand extends Command {
         bPause = !bPause;
         if(bPause){
             bGSound.pause();
-        }else bGSound.play();
+            gw.setSound(false);
+        }else {
+            bGSound.play();
+            gw.setSound(true);
+        }
     }
 }
