@@ -15,6 +15,6 @@ public class SaveCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        //TODO
+        System.out.println("Save button clicked");
     }
 }

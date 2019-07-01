@@ -2,7 +2,6 @@ package com.mycompany.a2;
 
 
 import com.codename1.ui.geom.Point2D;
-import sounds.BgSound;
 import sounds.Sound;
 
 import java.util.Observable;
@@ -48,6 +47,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	public GameObjectCollection getCollection() { return collection; }
 	public IIterator getIterator() { return collection.getIterator(); }
 	public boolean soundOn() { return soundOn; }
+	public PlayerShip getPlayerShip() { return this.playerShip; }
 	//setters
 	public void setSound(boolean soundOn) { this.soundOn = soundOn; }
 
@@ -116,6 +116,10 @@ public class GameWorld extends Observable implements IGameWorld {
     	if(playerShip == null) {
 			playerShip = new PlayerShip();
 			collection.add(playerShip);
+
+
+			//COME BACK HERE!
+			//collection.add(playerShip.getLauncher());
 			System.out.println("New PLAYER SHIP has been created");
 			System.out.println(playerShip);
 			this.setChanged();
@@ -156,6 +160,7 @@ public class GameWorld extends Observable implements IGameWorld {
         	numMissiles--;
             //compute missile location, speed, and heading
             Point2D missileLocation = playerShip.getLocation();
+
             double missileSpeed = playerShip.getSpeed() + 5.0;
             int missileHeading = playerShip.getLauncher().getDirection();
             Missile missile = new Missile(missileSpeed,missileHeading,missileLocation,true);
@@ -204,10 +209,10 @@ public class GameWorld extends Observable implements IGameWorld {
 	// j
 	public void jump() {
 		if(playerShip != null) {
-			if(playerShip.getLocation().getX() == 512.0 && playerShip.getLocation().getY() == 384.0)
+			if(playerShip.getLocation().getX() == Game.getWIDTH() / 2 && playerShip.getLocation().getY() == Game.getHEIGHT() / 2 )
 				System.out.println("PLAYER SHIP ALREADY IN CENTER");
 			else {
-				playerShip.setLocation(512, 384);
+				playerShip.setLocation(Game.getWIDTH() / 2, Game.getHEIGHT() / 2);
 				System.out.println("PS jumped to " + playerShip.getLocation());
 				this.setChanged();
 				this.notifyObservers(new GameWorldProxy((this)));
@@ -339,7 +344,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				numberOfLives--;
 				collection.remove(missile);
 				System.out.println("Non player ship missile eliminated player ship!");
-				if (numberOfLives == 1) {
+				if (numberOfLives == 0) {
 					collection.remove(playerShip);
 					playerShip = null;
 					System.out.println("GAME OVER");
@@ -370,20 +375,24 @@ public class GameWorld extends Observable implements IGameWorld {
 				asteroid = (Asteroid) object;
 			}
 		}
+
+
 		if(asteroid != null) {
+			numberOfLives--;
 			collection.remove(asteroid);
 			collection.remove(playerShip);
 			System.out.println("Player ship crashed into an asteroid!");
 		}
-		if(this.numberOfLives > 0) {
-			this.numberOfLives--;
-			playerShip = new PlayerShip();
-			collection.add(playerShip);
-		}
-			//this code will never print out 
-		else {
+		if(this.numberOfLives == 0) {
 			playerShip = null;
 			System.out.println("0 lives, GAME OVER!");
+
+
+		}
+		else {
+			playerShip = new PlayerShip();
+			collection.add(playerShip);
+
 		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy((this)));
@@ -475,7 +484,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	public void tick() {
 		timeElapsed++;
 		//gameOver will play the ending sound
-		if( gameOver()){
+		if( gameOver() ){
 			return;
 
 
@@ -484,10 +493,34 @@ public class GameWorld extends Observable implements IGameWorld {
     	while(iterator.hasNext()){
 
 
+
+
     		Object object = iterator.getNext();
+
+    		if(object instanceof GameObject) {
+    			GameObject go = (GameObject) object;
+				//System.out.println(go.getY());
+    			//wrap x
+    			if(go.getX() < 0)
+    				go.setX(Game.getWIDTH());
+    			else if(go.getX() > Game.getWIDTH())
+    				go.setX(0);
+
+    			//wrap y
+    			if(go.getY() < 0 ) {
+					go.setY(Game.getHEIGHT());
+					System.out.println(go.getY());
+				}
+
+    			else if(go.getY() > Game.getHEIGHT())
+    				go.setY(0);
+			}
+
+
+
 			//1 update all movable objects positions 
 			if(object instanceof IMovable) {
-				((IMovable) object).move();
+				((IMovable) object).move(timeElapsed);
 			}
 			
 			//2 update all missiles fuel levels 
@@ -514,8 +547,10 @@ public class GameWorld extends Observable implements IGameWorld {
     	if(numberOfLives == 0){
     		if(soundOn) {
     			//Game.soundCommand.bPause(true);
-				BgSound UFO = new BgSound("UFO.wav");
+				Sound UFO = new Sound("UFO.wav");
+
 				UFO.play();
+				UFO.pause();
 				return true;
 			}
 		}
@@ -573,13 +608,4 @@ public class GameWorld extends Observable implements IGameWorld {
 	public void quit(){
 		System.exit(0);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

@@ -1,24 +1,18 @@
 package com.mycompany.a2;
 
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point2D;
 
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
 
 	private int launcherDirection;
-	//private Sound rotate; // = new Sound ("rotate.wav");
 	public SteerableMissileLauncher() {
-		launcherDirection = super.getDirection();
+
+	    launcherDirection = super.getDirection();
+	    this.setColor(ColorUtil.BLACK);
 	}
-	//public Sound getLauncherSound() { return new Sound ("rotate.wav"); }
 
-
-
-
-    //getters
-    //public Sound getSound() { return this.rotate; }
-    //public int getLauncherDirection() {return this.launcherDirection;}
-    //public void setLauncherDirection(int direction) {this.launcherDirection = direction;}
     
     @Override
     public void turnLeft() {
@@ -38,14 +32,16 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
     }
     @Override
     public void draw(Graphics graphics, Point2D point){
+
+	    int length = 100;
         int x = (int) (point.getX() + this.getX() );
         int y = (int) (point.getY() + this.getY() );
-        graphics.setColor(this.getColor());
-        graphics.drawRect(x,y,60,60,5);
-        graphics.fillRect(x,y,20,20);
-        //System.out.println("Drawing...");
+        double dX = length * Math.cos(Math.toRadians( 90 - getDirection()));
+        double dY = length * Math.sin(Math.toRadians( 90 - getDirection()));
+        graphics.setColor(ColorUtil.BLACK);
+        graphics.drawLine(x, y, (int) (x + dX), (int)(y + dY));
+        //graphics.fillArc(x,y,100,100,0,360);
     }
-
 
 
 }

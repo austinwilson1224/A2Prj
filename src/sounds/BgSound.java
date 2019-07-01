@@ -24,5 +24,6 @@ public class BgSound implements Runnable {
     public void run(){
         m.setTime(0);
         m.play();
+
     }
 }

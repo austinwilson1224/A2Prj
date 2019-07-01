@@ -23,15 +23,14 @@ public class Game extends Form implements Runnable {
     private GameWorld gw;
     private MapView mv;
     private PointsView pv;
+
+
     private static int HEIGHT;
     private static int WIDTH;
 
 
     public static int getHEIGHT() { return Game.HEIGHT; }
     public static int getWIDTH() { return Game.WIDTH; }
-
-
-
 
 
 
@@ -140,89 +139,80 @@ public class Game extends Form implements Runnable {
         //command key binding
 
         //a = add asteroid
-        this.addKeyListener(97,addAsteroidCommand);
+        this.addKeyListener('a',addAsteroidCommand);
         //s = add player ship
-        this.addKeyListener(115,addPlayerShipCommand);
+        this.addKeyListener('s',addPlayerShipCommand);
         //y = add NPS
-        this.addKeyListener(121,addNPSCommand);
+        this.addKeyListener('y',addNPSCommand);
         //b  = add space station
-        this.addKeyListener(98,addSpaceStationCommand);
+        this.addKeyListener('b',addSpaceStationCommand);
 
 
 
 
-        //i = increase PS speed
-        this.addKeyListener( 105,increasePSSpeedCommand);
+        //i = increase PS speed right arrow
+        this.addKeyListener( -91,increasePSSpeedCommand);
         //d = decrease PS speed
-        this.addKeyListener(100,decreasePSSpeedCommand);
+        this.addKeyListener(-92,decreasePSSpeedCommand);
 
 
         //steering player ship
         //l = steer player sip left
-        this.addKeyListener(108,turnPlayerShipLeftCommand);
+        this.addKeyListener(-93,turnPlayerShipLeftCommand);
         //r = turn player ship right
-        this.addKeyListener(114,turnPlayerShipRightCommand);
+        this.addKeyListener(-94,turnPlayerShipRightCommand);
 
 
         //rotate player ship missile launcher
         //> = 62
-        this.addKeyListener(62,turnMLRightCommand);
+        this.addKeyListener('>',turnMLRightCommand);
 
 
 
         //f = fire missile out of player ship
-        this.addKeyListener(102,psFireCommand);
+        this.addKeyListener('f',psFireCommand);
         //L = launch missile out of NPS
-        this.addKeyListener(76,npsFireCommand);
+        this.addKeyListener('L',npsFireCommand);
 
 
         //j = jump to hyperspace
-        this.addKeyListener(106,jumpCommand);
+        this.addKeyListener('j',jumpCommand);
 
         //n = reload
-        this.addKeyListener(110,loadPSMissilesCommand);
+        this.addKeyListener('n',loadPSMissilesCommand);
 
         //k = PS missile has struck and killed an asteroid
-        this.addKeyListener(107,psMissileHitAsteroidCommand);
+        this.addKeyListener('k',psMissileHitAsteroidCommand);
 
         //e = PS missile struck and killed NPS
-        this.addKeyListener(101,psHitsNPSCommand);
+        this.addKeyListener('e',psHitsNPSCommand);
 
         //E = NPS missile struck and killed PS
         this.addKeyListener('E',npsMissileHitPSCommand);
 
         //c = PS crashed into an asteroid
-        this.addKeyListener(99,psHitsAsteroidCommand);
+        this.addKeyListener('c',psHitsAsteroidCommand);
 
         //h = PS hit and NPS
-        this.addKeyListener(104,psHitsNPSCommand);
+        this.addKeyListener('h',psHitsNPSCommand);
 
         //x = two asteroids have collided
-        this.addKeyListener(120,asteroidsCrashCommand);
+        this.addKeyListener('x',asteroidsCrashCommand);
 
         //I = 73 NPS hit asteroid
-        this.addKeyListener(73, asteroidHitsNPSCommand);
+        this.addKeyListener('I', asteroidHitsNPSCommand);
 
         //t = tick
-        this.addKeyListener(116,tickCommand);
+        this.addKeyListener('t',tickCommand);
 
         //p = print
-        this.addKeyListener(112,printCommand);
+        this.addKeyListener('p',printCommand);
 
         //m = print a map
-        this.addKeyListener(109,mapCommand);
-
-
-
-
-
-
-
-
-
+        this.addKeyListener('m',mapCommand);
 
         //q = quit
-        this.addKeyListener(113,quitCommand);
+        this.addKeyListener('q',quitCommand);
 
 
         //associating the command with correct buttons
@@ -248,8 +238,9 @@ public class Game extends Form implements Runnable {
 
         //MapView
         this.add(BorderLayout.CENTER,mv);
-        UITimer.timer(100, true, this);
-
+        //UITimer.timer(100, true, this);
+        UITimer t = new UITimer(this);
+        t.schedule(100,true,this);
 
 
         //sound

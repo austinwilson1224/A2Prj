@@ -24,6 +24,7 @@ public class SoundCommand extends Command {
     @Override
     public void actionPerformed(ActionEvent evt) {
         bPause = !bPause;
+        System.out.println("Sound button clicked");
         if(bPause){
             bGSound.pause();
             gw.setSound(false);

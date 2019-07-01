@@ -20,6 +20,7 @@ public class GameObjectCollection implements ICollection {
     public void add(Object newObject){collection.add(newObject);}
     public void add(GameObject object) { collection.add(object); }
     public void remove(Object object) { collection.remove(object); }
+    public void clear() { collection.clear(); }
 
     public IIterator getIterator(){
         return new SpaceVectorIterator();
@@ -32,7 +33,6 @@ public class GameObjectCollection implements ICollection {
 
         //two private fields for access
         private int index = 0;
-        public void decrementIndex() { if (index > 0) index--; }
 
         public boolean hasNext(){
             return this.index < GameObjectCollection.this.collection.size();

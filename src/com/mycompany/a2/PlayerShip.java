@@ -60,5 +60,7 @@ public class PlayerShip extends Ship implements ISteerable{
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
         graphics.drawRect(x,y,50,50,5);
+        this.getLauncher().draw(graphics,point);
     }
+
 }

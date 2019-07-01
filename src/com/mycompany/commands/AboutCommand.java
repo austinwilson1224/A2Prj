@@ -17,7 +17,7 @@ public class AboutCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        System.out.println("About button clicked");
         Boolean about = Dialog.show("About","this is my asteroids game","ok","canel");
-        System.out.println("ABOUT CLICKED!");
     }
 }

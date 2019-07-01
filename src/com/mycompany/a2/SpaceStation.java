@@ -11,7 +11,6 @@ public class SpaceStation extends FixedGameObject {
     //fields
     private int blinkRate;
     private boolean blinkerOn;
-    private final int MINBLINKRATE = 1;
     private final int MAXBLINKRATE = 6;
 
     /**
@@ -24,7 +23,7 @@ public class SpaceStation extends FixedGameObject {
     public SpaceStation(){
         double w = R.nextDouble(), h = R.nextDouble();
         setLocation(Game.getWIDTH() * w, Game.getHEIGHT() * h);
-        this.blinkRate = GameObject.R.nextInt(MAXBLINKRATE - MINBLINKRATE );
+        this.blinkRate = GameObject.R.nextInt( MAXBLINKRATE ) + 1;
         this.blinkerOn = true;
         super.setColor(225, 225, 225); //white
     }
@@ -47,8 +46,6 @@ public class SpaceStation extends FixedGameObject {
     @Override
     public String toString(){
         if(blinkerOn) {
-
-
             return ("Station: " + super.toString() +
                     " rate = " + blinkRate
             );
@@ -64,7 +61,8 @@ public class SpaceStation extends FixedGameObject {
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
         graphics.drawRect(x,y,100,100,5);
-        //graphics.fillArc(x,y,10,10,0,360);
+        if(blinkerOn)
+            graphics.fillRect(x,y,100,100);
     }
 
 }

@@ -6,10 +6,5 @@ public class MissileLauncher extends MovableGameObject {
     public MissileLauncher() {
     	//TODO
     }
-    //public int getMissileCount(){return missileCount;}
-    //public void decrementMissileCount(){this.missileCount--;}
-    @Override
-    public void move() {
-        //TODO
-    }
+
 }

@@ -13,6 +13,8 @@ public class AddNPSCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+
         gw.addNonPlayerShip();
+        System.out.println("Add player ship pressed!");
     }
 }

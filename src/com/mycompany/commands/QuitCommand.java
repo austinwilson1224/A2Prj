@@ -13,17 +13,14 @@ public class QuitCommand extends Command {
     public QuitCommand(GameWorld gw) {
         super("Quit*");
         this.gw = gw;
-        //this.setCommandName("Closing app demo");
-
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        System.out.println("Quit button clicked");
         Boolean bOk = Dialog.show("Confirm quit","Are you sure you want to quit?", "Ok","Canel");
         if(bOk){
             Display.getInstance().exitApplication();
         }
-        //this.show();
-
     }
 }

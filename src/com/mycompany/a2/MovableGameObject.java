@@ -59,13 +59,19 @@ public abstract class MovableGameObject extends GameObject implements IMovable {
     
     
     @Override
-    public void move() {
+    public void move(double time) {
+
+        // to account for time elapsed
+        time %= 10000;
+        time %= 1000;
+        //time %= 100;
     	
     	double x = this.getLocation().getX();
     	double y = this.getLocation().getY();
-    	x -= speed * Math.cos(Math.toRadians(90 + direction));
-    	y -= speed * Math.sin(Math.toRadians(90 + direction));
-    	this.setLocation(x, y);
+    	time /= 100;
+    	x -= speed * time * Math.cos(Math.toRadians(90 + direction));
+    	y -= speed * time * Math.sin(Math.toRadians(90 + direction));
+    	this.setLocation( x, y);
 
     }
     @Override
