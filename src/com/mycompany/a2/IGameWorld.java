@@ -6,6 +6,7 @@ public interface IGameWorld {
     int getPlayerScore();
     int getNumMissiles();
     int getTimeElapsed();
+    boolean soundOn();
     GameObjectCollection getCollection();
     IIterator getIterator();
     void init();
@@ -20,7 +21,8 @@ public interface IGameWorld {
     void fireMissilePS();
     void fireMissileNPS();
     void jump();
-    void revolvePSML();
+    void turnPSMLRight();
+    void turnPSMLLeft();
     void reloadPS();
     void killAsteroid();
     void eliminateNPS();

@@ -26,6 +26,7 @@ public class PlayerShip extends Ship implements ISteerable{
         setDirection(0);
         setMissileCount(10);
         setColor(0,225,0);
+        setSize(50);
         launcher = new SteerableMissileLauncher();
         launcher.setDirection(this.getDirection());
         
@@ -33,6 +34,13 @@ public class PlayerShip extends Ship implements ISteerable{
     //getter
     public SteerableMissileLauncher getLauncher() {
     	return this.launcher;
+    }
+
+    @Override
+    public void move(double time) {
+        super.move(time);
+
+        this.getLauncher().setLocation(this.getX(), this.getY());
     }
 
     @Override
@@ -59,7 +67,14 @@ public class PlayerShip extends Ship implements ISteerable{
         int x = (int) (point.getX() + this.getX() );
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
-        graphics.drawRect(x,y,50,50,5);
+
+        int [] polyGonX = new int[] { x - getSize() / 2, x - getSize() / 2, x + getSize() / 2, x + getSize() / 2};
+
+        int [] polyGonY = new int[] { y + getSize() / 2, y - getSize() / 2,  y + getSize() / 2, y - getSize() / 2};
+
+        graphics.drawPolygon(polyGonX, polyGonY, 4);
+        graphics.fillPolygon(polyGonX, polyGonY, 4);
+        //graphics.drawRect(x - getSize() / 2, y - getSize() / 2, getSize(),getSize(),5);
         this.getLauncher().draw(graphics,point);
     }
 

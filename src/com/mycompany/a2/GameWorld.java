@@ -161,7 +161,7 @@ public class GameWorld extends Observable implements IGameWorld {
             //compute missile location, speed, and heading
             Point2D missileLocation = playerShip.getLocation();
 
-            double missileSpeed = playerShip.getSpeed() + 5.0;
+			double missileSpeed = playerShip.getSpeed() + 5.0;
             int missileHeading = playerShip.getLauncher().getDirection();
             Missile missile = new Missile(missileSpeed,missileHeading,missileLocation,true);
             collection.add(missile);
@@ -174,7 +174,6 @@ public class GameWorld extends Observable implements IGameWorld {
 			if(soundOn) {
 				Sound missileFiredSound = new Sound("fire.mp3");
 				missileFiredSound.play();
-				//missileFiredSound.pause();
 			}
 
             this.setChanged();
@@ -190,7 +189,17 @@ public class GameWorld extends Observable implements IGameWorld {
             System.out.print("NO NON PLAYER SHIP IN GAME");
             return;
         }
-        //will only return true if the player ship has missiles available to fire 
+        if(nonPlayerShip.getMissileCount() == 0){
+
+        	IIterator iterator = collection.getIterator();
+        	while(iterator.hasNext()){
+        		Object object = iterator.getNext();
+        		if( object instanceof NonPlayerShip)
+        			if( object != nonPlayerShip)
+        				nonPlayerShip = (NonPlayerShip) object;
+			}
+		}
+        //will only return true if the player ship has missiles available to fire
         if(nonPlayerShip.fireMissiles()) {
         	//System.out.println("Missile fired!");
         	Point2D missileLocation = nonPlayerShip.getLocation();
@@ -201,6 +210,11 @@ public class GameWorld extends Observable implements IGameWorld {
         	collection.add(missile);
         	System.out.println("New missile added to the world");
         	System.out.println(missile);
+        	//sound
+        	if(soundOn){
+        		Sound missileFiredSound = new Sound("fire.mp3");
+        		missileFiredSound.play();
+			}
         	this.setChanged();
         	this.notifyObservers(new GameWorldProxy((this)));
         }
@@ -224,11 +238,13 @@ public class GameWorld extends Observable implements IGameWorld {
 
 	// >
 	// HAS SOUND
-	public void revolvePSML() {
+	public void turnPSMLRight() {
 		//first check that the player ship exists in game 
 		if(playerShip != null) {
-			if(  (playerShip.getLauncher().getDirection() + 10) > 359) {
-				playerShip.getLauncher().setDirection( playerShip.getDirection() + 10 - 360);
+			if(  (playerShip.getLauncher().getDirection() + 10) >= 360) {
+				System.out.println("KSDFJOSDJFKLSDJ");
+				playerShip.getLauncher().setDirection( playerShip.getLauncher().getDirection() + 10 - 360);
+				System.out.println(playerShip.getLauncher().getDirection());
 			} else playerShip.getLauncher().setDirection(playerShip.getLauncher().getDirection() + 10);
 			if(soundOn) {
 				Sound rotate = new Sound("rotate.wav");
@@ -238,6 +254,21 @@ public class GameWorld extends Observable implements IGameWorld {
 			this.notifyObservers(new GameWorldProxy((this)));
 		}
 		else System.out.println("No player ship in the game");	
+	}
+	public void turnPSMLLeft() {
+		//first check that the player ship exists in game
+		if(playerShip != null) {
+			if(  (playerShip.getLauncher().getDirection() - 10) < 0) {
+				playerShip.getLauncher().setDirection( playerShip.getDirection() - 10 + 360);
+			} else playerShip.getLauncher().setDirection(playerShip.getLauncher().getDirection() - 10);
+			if(soundOn) {
+				Sound rotate = new Sound("rotate.wav");
+				rotate.play();
+			}
+			this.setChanged();
+			this.notifyObservers(new GameWorldProxy((this)));
+		}
+		else System.out.println("No player ship in the game");
 	}
 
 
@@ -499,7 +530,6 @@ public class GameWorld extends Observable implements IGameWorld {
 
     		if(object instanceof GameObject) {
     			GameObject go = (GameObject) object;
-				//System.out.println(go.getY());
     			//wrap x
     			if(go.getX() < 0)
     				go.setX(Game.getWIDTH());
@@ -509,7 +539,6 @@ public class GameWorld extends Observable implements IGameWorld {
     			//wrap y
     			if(go.getY() < 0 ) {
 					go.setY(Game.getHEIGHT());
-					System.out.println(go.getY());
 				}
 
     			else if(go.getY() > Game.getHEIGHT())
@@ -550,7 +579,7 @@ public class GameWorld extends Observable implements IGameWorld {
 				Sound UFO = new Sound("UFO.wav");
 
 				UFO.play();
-				UFO.pause();
+				//UFO.pause();
 				return true;
 			}
 		}

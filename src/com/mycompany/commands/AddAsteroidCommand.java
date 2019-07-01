@@ -9,12 +9,13 @@ public class AddAsteroidCommand extends Command  {
     private GameWorld gw;
 
     public AddAsteroidCommand(GameWorld gw){
-        super("Add Asteroid");
+        super("+ Asteroid");
         this.gw = gw;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        gw.loadNewAsteroid();
+        if(e.getKeyEvent() != -1)
+            gw.loadNewAsteroid();
     }
 }

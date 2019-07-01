@@ -15,6 +15,7 @@ public class JumpCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        gw.jump();
+        if(evt.getKeyEvent() != -1)
+            gw.jump();
     }
 }

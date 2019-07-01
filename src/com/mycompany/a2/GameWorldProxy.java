@@ -11,6 +11,7 @@ public class GameWorldProxy extends Observable implements IGameWorld {
     public int getPlayerScore() { return this.gw.getPlayerScore(); }
     public int getNumMissiles() { return this.gw.getNumMissiles(); }
     public int getTimeElapsed() { return this.gw.getTimeElapsed(); }
+    public boolean soundOn() { return this.gw.soundOn(); }
     public GameObjectCollection getCollection() { return this.gw.getCollection(); }
     public IIterator getIterator() { return this.gw.getIterator(); }
     public void init() { this.gw.init(); }
@@ -25,7 +26,8 @@ public class GameWorldProxy extends Observable implements IGameWorld {
     public void fireMissilePS() { this.gw.fireMissileNPS(); }
     public void fireMissileNPS() { this.gw.fireMissileNPS(); }
     public void jump() { this.gw.jump(); }
-    public void revolvePSML() { this.gw.revolvePSML(); }
+    public void turnPSMLRight() { this.gw.turnPSRight(); }
+    public void turnPSMLLeft() { this.gw.turnPSMLLeft(); }
     public void reloadPS() { this.gw.reloadPS(); }
     public void killAsteroid() { this.gw.killAsteroid(); }
     public void eliminateNPS() { this.gw.eliminateNPS(); }

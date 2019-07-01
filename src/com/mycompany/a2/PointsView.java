@@ -15,7 +15,8 @@ import java.util.Observer;
 public class PointsView extends Container implements Observer {
 
 
-    private Label points, lives, missiles,  time;
+    private Label points, lives, missiles,  time, sound;
+    String soundOn;
     private IGameWorld gw;
 
     public PointsView(GameWorld gw) {
@@ -30,6 +31,10 @@ public class PointsView extends Container implements Observer {
         lives = new Label("LIVES:" + gw.getNumberOfLives());
         missiles = new Label("MISSILES:" + gw.getNumMissiles());
         time = new Label("TIME:" + gw.getTimeElapsed());
+        if(gw.soundOn()){
+            soundOn = "ON";
+        }else soundOn = "OFF";
+        sound = new Label("SOUND:" );
 
 
 
@@ -38,6 +43,7 @@ public class PointsView extends Container implements Observer {
         this.add(lives);
         this.add(missiles);
         this.add(time);
+        this.add(sound);
 
 
 
@@ -54,6 +60,9 @@ public class PointsView extends Container implements Observer {
         lives.setText("LIVES: " + gw.getNumberOfLives());
         missiles.setText("MISSILES: " + gw.getNumMissiles());
         time.setText("TIME: " + gw.getTimeElapsed());
+        if(gw.soundOn()){
+            sound.setText("SOUND:ON");
+        }else sound.setText("SOUND:OFF");
 
 
 

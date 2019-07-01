@@ -9,12 +9,13 @@ public class AddPlayerShipCommand extends Command {
     private GameWorld gw;
 
     public AddPlayerShipCommand(GameWorld gw){
-        super("Add player ship");
+        super("+ PS");
         this.gw = gw;
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        gw.addPlayerShip();
+        if (evt.getKeyEvent() != -1)
+            gw.addPlayerShip();
     }
 }

@@ -166,11 +166,13 @@ public class Game extends Form implements Runnable {
         //rotate player ship missile launcher
         //> = 62
         this.addKeyListener('>',turnMLRightCommand);
+        // < rotate PSML ccw
+        this.addKeyListener('<',turnMLLeftCommand);
 
 
 
         //f = fire missile out of player ship
-        this.addKeyListener('f',psFireCommand);
+        this.addKeyListener(-90,psFireCommand);
         //L = launch missile out of NPS
         this.addKeyListener('L',npsFireCommand);
 
@@ -246,6 +248,7 @@ public class Game extends Form implements Runnable {
         //sound
         SoundCommand soundCommand = new SoundCommand(gw);
         CheckBox sound = new CheckBox("Sound");
+        sound.setSelected(true);
         sound.setCommand(soundCommand);
         toolbar.addComponentToLeftSideMenu(sound);
         sound.getAllStyles().setBgTransparency(255);

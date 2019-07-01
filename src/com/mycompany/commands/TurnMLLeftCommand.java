@@ -14,7 +14,6 @@ public class TurnMLLeftCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        //TODO
-        //gw.revolvePSML();
+        gw.turnPSMLLeft();
     }
 }

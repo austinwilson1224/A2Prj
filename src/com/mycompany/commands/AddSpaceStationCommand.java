@@ -8,12 +8,13 @@ public class AddSpaceStationCommand extends Command {
     private GameWorld gw;
 
     public AddSpaceStationCommand(GameWorld gw){
-        super("Add space station");
+        super("+ Space Station");
         this.gw = gw;
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        gw.addSpaceStation();
+        if(evt.getKeyEvent() != -1)
+            gw.addSpaceStation();
     }
 }

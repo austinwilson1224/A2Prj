@@ -7,6 +7,10 @@ package com.mycompany.a2;
  */
 public abstract class Ship extends MovableGameObject{
     private int missileCount;
+    private int size;
+
+    public int getSize() { return this.size; }
+    public void setSize(int size) { this.size = size; }
 
     public void setMissileCount(int missileCount){
         this.missileCount = missileCount;

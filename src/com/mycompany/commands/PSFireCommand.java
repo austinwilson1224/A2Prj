@@ -15,6 +15,7 @@ public class PSFireCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        gw.fireMissilePS();
+        if(evt.getKeyEvent() != -1)
+            gw.fireMissilePS();
     }
 }
