@@ -549,7 +549,7 @@ public class GameWorld extends Observable implements IGameWorld {
 
 			//1 update all movable objects positions 
 			if(object instanceof IMovable) {
-				((IMovable) object).move(timeElapsed);
+				((IMovable) object).move(Game.getTickRate());
 			}
 			
 			//2 update all missiles fuel levels 

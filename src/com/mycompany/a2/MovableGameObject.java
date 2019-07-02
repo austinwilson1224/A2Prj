@@ -12,7 +12,7 @@ public abstract class MovableGameObject extends GameObject implements IMovable {
     private double speed;
     private int direction;
     public static final int MIN_SPEED = 0;
-    public static final int MAX_SPEED = 20;
+    public static final int MAX_SPEED = 10;
     private final int MIN_DIRECTION = 0;
     private final int MAX_DIRECTION = 359;
 
@@ -61,14 +61,11 @@ public abstract class MovableGameObject extends GameObject implements IMovable {
     @Override
     public void move(double time) {
 
-        // to account for time elapsed
-        time %= 10000;
-        time %= 1000;
-        //time %= 100;
+
     	
     	double x = this.getLocation().getX();
     	double y = this.getLocation().getY();
-    	time /= 100;
+    	time /= 20;
     	x -= speed * time * Math.cos(Math.toRadians(90 + direction));
     	y -= speed * time * Math.sin(Math.toRadians(90 + direction));
     	this.setLocation( x, y);
