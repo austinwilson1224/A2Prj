@@ -57,7 +57,7 @@ public class NonPlayerShip extends Ship {
         int x = (int) (point.getX() + this.getX() );
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(this.getColor());
-        graphics.fillArc(x,y,50,50,0,360);
+        graphics.fillArc(x,y,size,size,0,360);
     }
 
 }

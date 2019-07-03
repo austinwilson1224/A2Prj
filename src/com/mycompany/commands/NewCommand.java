@@ -18,7 +18,9 @@ public class NewCommand extends Command {
     public void actionPerformed(ActionEvent evt) {
         System.out.println("New button clicked");
         if(gw.getPlayerShip() != null){
+
             gw.getCollection().remove(gw.getPlayerShip());
+
         }
         IIterator iterator = gw.getIterator();
         while(iterator.hasNext()) {

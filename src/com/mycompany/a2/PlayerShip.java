@@ -46,12 +46,12 @@ public class PlayerShip extends Ship implements ISteerable{
     @Override
     public void turnLeft() {
     	if(this.getDirection() == 0) {
-    		this.setDirection(359);
+    		this.setDirection(350);
     	}else this.setDirection(this.getDirection() - 10);
     }
     @Override
     public void turnRight() {
-    	if(this.getDirection() == 359) {
+    	if(this.getDirection() == 350) {
     		this.setDirection(0);
     	}else this.setDirection(this.getDirection() + 10);
     }

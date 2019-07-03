@@ -15,6 +15,6 @@ public class UndoCommand extends Command {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        //TODO
+        System.out.println("Undo button clicked");
     }
 }

@@ -17,16 +17,12 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
     	if(this.getDirection() == 0) {
     		this.setDirection(359);
     	}else this.setDirection(this.getDirection() + 1);
-    	//rotate = new Sound("rotate.wav");
-        //rotate.play();
     }
     @Override
     public void turnRight() {
     	if(this.getDirection() == 359) {
     		this.setDirection(0);
     	}else this.setDirection(this.getDirection() - 1);
-        //rotate = new Sound("rotate.wav");
-        //rotate.play();
     }
 
 

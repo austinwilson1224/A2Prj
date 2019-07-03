@@ -59,7 +59,7 @@ public class PointsView extends Container implements Observer {
         points.setText("POINTS: " +  gw.getPlayerScore());
         lives.setText("LIVES: " + gw.getNumberOfLives());
         missiles.setText("MISSILES: " + gw.getNumMissiles());
-        time.setText("TIME: " + gw.getTimeElapsed() / 10);
+        time.setText("TIME: " + gw.getTimeElapsed() * Game.TICK_RATE / 1000);
         if(gw.soundOn()){
             sound.setText("SOUND:ON");
         }else sound.setText("SOUND:OFF");

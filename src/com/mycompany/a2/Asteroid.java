@@ -32,7 +32,7 @@ public class Asteroid extends MovableGameObject {
         int x = (int) (point.getX() + this.getX() );
         int y = (int) (point.getY() + this.getY() );
         graphics.setColor(ColorUtil.rgb(0,150,150));
-        graphics.fillArc(x,y,20,20,0,360);
+        graphics.fillArc(x,y,size,size,0,360);
     }
 
 }

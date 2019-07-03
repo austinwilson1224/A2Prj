@@ -27,12 +27,12 @@ public class Game extends Form implements Runnable {
 
     private static int HEIGHT;
     private static int WIDTH;
-    private static final int tickRate = 20;
+    public static final int TICK_RATE = 20;
 
 
     public static int getHEIGHT() { return Game.HEIGHT; }
     public static int getWIDTH() { return Game.WIDTH; }
-    public static int getTickRate() { return tickRate;}
+    public static int getTickRate() { return TICK_RATE;}
 
 
 
@@ -244,7 +244,7 @@ public class Game extends Form implements Runnable {
         this.add(BorderLayout.CENTER,mv);
         //UITimer.timer(100, true, this);
         UITimer t = new UITimer(this);
-        t.schedule(tickRate,true,this);
+        t.schedule(TICK_RATE,true,this);
 
 
         //sound

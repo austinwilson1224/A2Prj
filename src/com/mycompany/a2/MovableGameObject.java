@@ -26,9 +26,7 @@ public abstract class MovableGameObject extends GameObject implements IMovable {
     public double getSpeed(){
         return this.speed;
     }
-    public int getDirection(){
-        return this.direction;
-    }
+    public int getDirection() { return this.direction; }
 
 
     public void setSpeed(double speed){
